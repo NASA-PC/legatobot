@@ -21,7 +21,7 @@ ircsock.send("NICK "+ botnick +"\n") # here we actually assign the nick to the b
 # All the functions
 
 def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
-  ircsock.send("PRIVMSG "+ channel +" :Tere " + usernick+ "!\n")
+  ircsock.send("PRIVMSG " + channel +" :Tere " + usernick+ "!\n")
 
 def commands(nick,channel,message):
   if message.find('!shellium')!=-1:
