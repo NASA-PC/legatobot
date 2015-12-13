@@ -24,10 +24,10 @@ def hello(usernick): # This function responds to a user that inputs "Hello Legat
   ircsock.send("PRIVMSG " + channel + " :Tere " + usernick + "!\n")
 
 def commands(nick,channel,message):
-  if message.find('!shellium')!=-1:
-    ircsock.send('PRIVMSG %s :%s: Shellium is dead!\r\n' % (channel,nick))
-  elif message.find('!help')!=-1:
-    ircsock.send('PRIVMSG %s :%s: #XdY to roll X Y-sided die' % (channel,nick))
+  if message.find("#4chan")!=-1:
+    ircsock.send("PRIVMSG %s :%s: 4chan.org/int/balt\r\n" % (channel,nick))
+  elif message.find("#help")!=-1:
+    ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats, #clearstats to clear stats, #4chan for latest /balt/ thread.\n" % (channel,nick))
 
 def ping(): # This is our first function! It will respond to server Pings.
   ircsock.send("PONG :pingis\n")
