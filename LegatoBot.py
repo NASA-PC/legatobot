@@ -123,8 +123,8 @@ while 1: # Be careful with these! it might send you to an infinite loop
  
   # Array for funny naughty words
   curses = ["homo", "dildo", "scrub", "penishole", "fag",
-  "vagina", "refugee", "immigrant", "nigger", "shitskin",
-  "scrotum", "banaan", "madman", "equine vaginal cavity"]
+  "madman", "refugee", "immigrant", "nigger", "shitskin",
+  "scrotum", "banaan", "equine vaginal cavity", "vagina"]
  
   # Funny reply
   for curse in curses:
