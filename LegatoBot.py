@@ -104,20 +104,25 @@ while 1: # Be careful with these! it might send you to an infinite loop
   ircmsg = ircsock.recv(2048) # receive data from the server
   ircmsg = ircmsg.strip('\n\r') # removing any unnecessary linebreaks.
   usernick = ircmsg.split('!')[0][1:]
-  print(ircmsg) # Here we print what's coming from the server
+  
+  # Here we print what's coming from the server
+  # print(ircmsg) Commenting out, just for a test, do we really need it, you know?
+  
   if ircmsg.find(' PRIVMSG ')!=-1:
     nick=ircmsg.split('!')[0][1:]
     channel=ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
     commands(nick,channel,ircmsg)
  
-  if ircmsg.find("PING :") != -1: # if the server pings us then we've got to respond!
+  # if the server pings us then we've got to respond!
+  if ircmsg.find("PING :") != -1:
     ping()
  
   # If anonkun joins, bot says hi :3
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
-
-  if ircmsg.find(":Tere "+ botnick) != -1: # If we can find "Hello LegatoBot" it will call the function hello()
+  
+  # If we can find "Hello LegatoBot" it will call the function hello()
+  if ircmsg.find(":Tere " + botnick) != -1:
     hello(usernick)
  
   # If someone says bye, bot says bye to them
@@ -160,8 +165,10 @@ while 1: # Be careful with these! it might send you to an infinite loop
     # Rolls the die somehow???
     rollDie(re.sub('[^0-9]','', dieRoll[0]), re.sub('[^0-9]','', dieRoll[1]), usernick)
  
+  # Rolls stats
   if ircmsg.find("#stats") != -1:
     rollStats(usernick)
- 
-  if ircmsg.find("#clearstats") != -1: # Calls clearStats if someone wants to clear their stats
+  
+  # Clears stats
+  if ircmsg.find("#clearstats") != -1:
     clearStats(usernick)
