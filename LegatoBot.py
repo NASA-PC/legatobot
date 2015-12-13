@@ -15,13 +15,13 @@ userStats = {}
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
-ircsock.send("USER "+ botnick +" "+ botnick +" "+ botnick +" :http://lemonparty.org.\n") # user authentication
-ircsock.send("NICK "+ botnick +"\n") # here we actually assign the nick to the bot
+ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://lemonparty.org.\n") # user authentication
+ircsock.send("NICK " + botnick + "\n") # here we actually assign the nick to the bot
 
 # All the functions
 
 def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
-  ircsock.send("PRIVMSG " + channel +" :Tere " + usernick+ "!\n")
+  ircsock.send("PRIVMSG " + channel + " :Tere " + usernick + "!\n")
 
 def commands(nick,channel,message):
   if message.find('!shellium')!=-1:
@@ -33,10 +33,10 @@ def ping(): # This is our first function! It will respond to server Pings.
   ircsock.send("PONG :pingis\n")
 
 def sendmsg(chan , msg): # This is the send message function, it simply sends messages to the channel.
-  ircsock.send("PRIVMSG "+ chan +" :"+ msg +"\n")
+  ircsock.send("PRIVMSG " + chan + " :" + msg + "\n")
 
 def joinchan(chan): # This function is used to join channels.
-  ircsock.send("JOIN "+ chan +"\n")
+  ircsock.send("JOIN " + chan + "\n")
 
 def rollDie(numberOfDice, typeOfDie, usernick): # Dice rolling function
   if typeOfDie == "0":
