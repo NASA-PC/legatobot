@@ -116,6 +116,9 @@ while 1: # Be careful with these! it might send you to an infinite loop
   # If anonkun joins, bot says hi :3
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
+
+  if ircmsg.find(":Tere "+ botnick) != -1: # If we can find "Hello LegatoBot" it will call the function hello()
+    hello(usernick)
  
   # If someone says bye, bot says bye to them
   if ircmsg.lower().find("bye") != -1:
@@ -162,6 +165,3 @@ while 1: # Be careful with these! it might send you to an infinite loop
  
   if ircmsg.find("#clearstats") != -1: # Calls clearStats if someone wants to clear their stats
     clearStats(usernick)
-
-  if ircmsg.find(":Tere "+ botnick) != -1: # If we can find "Hello LegatoBot" it will call the function hello()
-    hello(usernick)
