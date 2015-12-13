@@ -5,13 +5,6 @@ import random
 import re
 import socket
  
-# TODO:
-# TodoBot
-# Add stats to a file
-# Welcome message when bot enters the channel? (commands)
-# Keep sorting the same on stats (arnie)
-# Sleep tite
- 
 # Some basic variables used to configure the bot        
 server = "irc.ircworld.org" # Server
 channel = "#balt" # Channel
