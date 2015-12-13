@@ -8,7 +8,7 @@ import socket
 # Some basic variables used to configure the bot        
 server = "irc.ircworld.org" # Server
 channel = "#balt" # Channel
-botnick = "Legatobot" # Your bot's nick
+botnick = "LegatoBot" # Your bot's nick
  
 # User stats object, makes the stats recallable
 userStats = {}
@@ -19,6 +19,10 @@ ircsock.send("USER "+ botnick +" "+ botnick +" "+ botnick +" :http://lemonparty.
 ircsock.send("NICK "+ botnick +"\n") # here we actually assign the nick to the bot
 
 # All the functions
+
+def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
+  ircsock.send("PRIVMSG "+ channel +" :Tere " + usernick+ "!\n")
+
 def commands(nick,channel,message):
   if message.find('!shellium')!=-1:
     ircsock.send('PRIVMSG %s :%s: Shellium is dead!\r\n' % (channel,nick))
@@ -158,3 +162,6 @@ while 1: # Be careful with these! it might send you to an infinite loop
  
   if ircmsg.find("#clearstats") != -1: # Calls clearStats if someone wants to clear their stats
     clearStats(usernick)
+
+  if ircmsg.find(":Tere "+ botnick) != -1: # If we can find "Hello LegatoBot" it will call the function hello()
+    hello(usernick)
