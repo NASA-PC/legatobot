@@ -13,6 +13,12 @@ botnick = "LegatoBot" # Your bot's nick
 # User stats object, makes the stats recallable
 userStats = {}
 
+# Array for funny naughty words
+curses = ["homo", "dildo", "scrub", "penishole", "fag",
+"madman", "refugee", "immigrant", "nigger", "shitskin",
+"scrotum", "banaan", "equine vaginal cavity", "vagina",
+"punk", "bag", "furry", "error"]
+
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://lemonparty.org.\n") # user authentication
@@ -132,11 +138,6 @@ while 1: # Be careful with these! it might send you to an infinite loop
       ircsock.send("!\n")
     else:
       ircsock.send("\n")
- 
-  # Array for funny naughty words
-  curses = ["homo", "dildo", "scrub", "penishole", "fag",
-  "madman", "refugee", "immigrant", "nigger", "shitskin",
-  "scrotum", "banaan", "equine vaginal cavity", "vagina"]
  
   # Funny reply
   for curse in curses:
