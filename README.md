@@ -2,12 +2,16 @@ INTRODUCTION
 
 Simple IRC bot for D&D and some various minor things.
 
+DEPENDENCIES
+
+Python 2.7
+
 CREDITS
 
-ArnieBoi[SWE]
-suukinni
-Thorndrop
-J3remy
+* ArnieBoi[SWE]
+* suukinni
+* Thorndrop
+* J3remy
 
 
 TO DO

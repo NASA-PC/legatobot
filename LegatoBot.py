@@ -19,6 +19,10 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 "scrotum", "banaan", "equine vaginal cavity", "vagina",
 "punk", "bag", "furry", "error"]
 
+# Spam counter
+# spam = 0
+# lastmsg = 
+
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://lemonparty.org.\n") # user authentication
@@ -138,7 +142,14 @@ while 1: # Be careful with these! it might send you to an infinite loop
       ircsock.send("!\n")
     else:
       ircsock.send("\n")
- 
+
+#  Anti-spam spray  
+#  if ircmsg.find(:
+#    spam + 1
+#    if spam >= 5:
+#      ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
+#    elif spam < 5:
+                 
   # Funny reply
   for curse in curses:
     if ircmsg.lower().find(curse) != -1 and ircmsg.lower().find("you") != -1:
