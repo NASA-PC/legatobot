@@ -22,20 +22,20 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://lemonparty.org.\n") # user authentication
-ircsock.send("NICK " + botnick + "\n") # here we actually assign the nick to the bot
+ircsock.send("NICK " + botnick + "\n") # Here we actually assign the nick to the bot
 
 # All the functions
 
 def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
   ircsock.send("PRIVMSG " + channel + " :Tere " + usernick + "!\n")
 
-def commands(nick,channel,message):
+def commands(nick,channel,message): # Some basic commands
   if message.find("#4chan")!=-1:
     ircsock.send("PRIVMSG %s :%s: 4chan.org/int/balt\r\n" % (channel,nick))
   elif message.find("#help")!=-1:
     ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats, #clearstats to clear stats, #4chan for latest /balt/ thread.\n" % (channel,nick))
 
-def ping(): # This is our first function! It will respond to server Pings.
+def ping(): # Bot will respond to server Pings.
   ircsock.send("PONG :pingis\n")
 
 def sendmsg(chan , msg): # This is the send message function, it simply sends messages to the channel.
