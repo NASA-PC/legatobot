@@ -128,7 +128,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
   
   # If we can find "Hello LegatoBot" it will call the function hello()
-  if ircmsg.find(":Tere " + botnick) != -1:
+  if ircmsg.lower().find(":Tere " + botnick) != -1 ircmsg.lower().find(":hello " + botnick) != -1:
     hello(usernick)
  
   # If someone says bye, bot says bye to them
