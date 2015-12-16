@@ -17,9 +17,9 @@ userStats = {}
 curses = ["homo", "dildo", "scrub", "penishole", "fag",
 "madman", "refugee", "immigrant", "nigger", "shitskin",
 "scrotum", "banaan", "equine vaginal cavity", "vagina",
-"punk", "bag", "furry", "error"]
+"punk", "bag", "furry", "error", "fig", "noob", "busta"]
 
-# Spam counter
+# Anti-Spam Spray
 # spam = 0
 # lastmsg =
 
@@ -28,7 +28,7 @@ ircsock.connect((server, 6667)) # Here we connect to the server using the port 6
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://lemonparty.org.\n") # user authentication
 ircsock.send("NICK " + botnick + "\n") # Here we actually assign the nick to the bot
 
-# All the functions
+# Functions
 
 def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
   ircsock.send("PRIVMSG " + channel + " :Tere " + usernick + "!\n")
@@ -39,7 +39,7 @@ def commands(nick,channel,message): # Some basic commands
   elif message.find("#help")!=-1:
     ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats, #clearstats to clear stats, #4chan for latest /balt/ thread.\n" % (channel,nick))
 
-def ping(): # Bot will respond to server Pings.
+def ping(): # Bot will respond to server pings
   ircsock.send("PONG :pingis\n")
 
 def sendmsg(chan , msg): # This is the send message function, it simply sends messages to the channel.
@@ -114,7 +114,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
   ircmsg = ircsock.recv(2048) # receive data from the server
   ircmsg = ircmsg.strip('\n\r') # removing any unnecessary linebreaks.
   usernick = ircmsg.split('!')[0][1:]
-  channel=ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
+  channel = ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
 
   # Here we print what's coming from the server
   # print(ircmsg) Commenting out, just for a test, do we really need it, you know?
@@ -142,7 +142,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
     else:
       ircsock.send("\n")
 
-  #Anti-spam spray
+  # Anti-spam spray
   #if ircmsg.find(:
   #  spam + 1
   #  if spam >= 5:
