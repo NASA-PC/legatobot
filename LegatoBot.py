@@ -5,11 +5,11 @@ import random
 import re
 import socket
 
-# Some basic variables used to configure the bot        
+# Some basic variables used to configure the bot
 server = "irc.ircworld.org" # Server
 channel = "#balt" # Channel
 botnick = "LegatoBot" # Your bot's nick
- 
+
 # User stats object, makes the stats recallable
 userStats = {}
 
@@ -21,7 +21,7 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 
 # Spam counter
 # spam = 0
-# lastmsg = 
+# lastmsg =
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
@@ -69,21 +69,21 @@ def rollStats(usernick): # Stat rolling function
   def modPipe(dieScore): # Stat modifier function
     # Minus 10, divide by 2 and floor it then make it into an integer
     modValue = int(math.floor((dieScore - 10) / 2 ))
-  
+
     # Adds a + if the modifier is more than or equal to 0
     if modValue < 0:
       modValue = "" + str(modValue)
     elif modValue >= 0:
       modValue = "+" + str(modValue)
-    
+
     return modValue
-  
+
   if usernick in userStats:
     ircsock.send("PRIVMSG " + channel + " :" + usernick + " rolled: \n")
     for stat in userStats[usernick]:
       ircsock.send("PRIVMSG " + channel + " :" + stat + ": " + str(userStats[usernick].get(stat)) + " (" +modPipe(userStats[usernick].get(stat)) + ")\n")
     return
-  
+
   stats = ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
   statObj = {}
 
@@ -94,47 +94,47 @@ def rollStats(usernick): # Stat rolling function
     for i in range(0, 4):
       dieScoreResults.append(random.randint(1, 6))
     dieScoreResults.remove(min(dieScoreResults))
-   
+
     statObj[stat] = sum(dieScoreResults)
-   
+
     ircsock.send("PRIVMSG " + channel + " :" + stat + ": " + str(sum(dieScoreResults)) + " (" + modPipe(sum(dieScoreResults)) + ")\n")
- 
+
   userStats[usernick] = statObj
- 
+
 def clearStats(usernick): # Clears stored stats for user
   if usernick in userStats:
     del userStats[usernick]
     ircsock.send("PRIVMSG " + channel + " :" + "Stats cleared for " + usernick + "\n")
- 
+
 # End of functions
- 
+
 joinchan(channel) # Joins the channel using the functions we previously defined
- 
+
 while 1: # Be careful with these! it might send you to an infinite loop
   ircmsg = ircsock.recv(2048) # receive data from the server
   ircmsg = ircmsg.strip('\n\r') # removing any unnecessary linebreaks.
   usernick = ircmsg.split('!')[0][1:]
-  
+
   # Here we print what's coming from the server
   # print(ircmsg) Commenting out, just for a test, do we really need it, you know?
-  
+
   if ircmsg.find(' PRIVMSG ')!=-1:
     nick=ircmsg.split('!')[0][1:]
     channel=ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
     commands(nick,channel,ircmsg)
- 
+
   # if the server pings us then we've got to respond!
   if ircmsg.find("PING :") != -1:
     ping()
- 
+
   # If anonkun joins, bot says hi :3
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
-  
+
   # If we can find "Hello LegatoBot" it will call the function hello()
-  if ircmsg.lower().find(":Tere " + botnick) != -1 ircmsg.lower().find(":hello " + botnick) != -1:
+  if ircmsg.lower().find(":tere " + botnick) != -1 and ircmsg.lower().find(":hello " + botnick) != -1:
     hello(usernick)
- 
+
   # If someone says bye, bot says bye to them
   if ircmsg.lower().find("bye") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "bye " + usernick)
@@ -143,13 +143,13 @@ while 1: # Be careful with these! it might send you to an infinite loop
     else:
       ircsock.send("\n")
 
-#  Anti-spam spray  
+#  Anti-spam spray
 #  if ircmsg.find(:
 #    spam + 1
 #    if spam >= 5:
 #      ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
 #    elif spam < 5:
-                 
+
   # Funny reply
   for curse in curses:
     if ircmsg.lower().find(curse) != -1 and ircmsg.lower().find("you") != -1:
@@ -159,28 +159,28 @@ while 1: # Be careful with these! it might send you to an infinite loop
       else:
         ircsock.send("PRIVMSG " + channel + " :" + "yeah you " + curse + "\n")
         break
- 
+
   # Splits message into words
   if re.search(r'#\d[dD]\d', ircmsg):
     splitMessage = ircmsg.split(" ")
-   
+
     # Gives all the words a number
     def indexOfRoll(the_list, substring):
       for i, s in enumerate(the_list):
         if re.search(r'#\d[dD]\d', s):
           return i
       return -1
-   
+
     # Creates dieRoll variables
     dieRoll = re.split(r'[dD]', splitMessage[indexOfRoll(splitMessage, "#")])
-   
+
     # Rolls the die somehow???
     rollDie(re.sub('[^0-9]','', dieRoll[0]), re.sub('[^0-9]','', dieRoll[1]), usernick)
- 
+
   # Rolls stats
   if ircmsg.find("#stats") != -1:
     rollStats(usernick)
-  
+
   # Clears stats
   if ircmsg.find("#clearstats") != -1:
     clearStats(usernick)
