@@ -148,8 +148,9 @@ while 1: # Be careful with these! it might send you to an infinite loop
     storedNick = ""
   if usernick != storedNick:
     storedNick = usernick
+    spamCount = 0
   elif usernick == storedNick:
-    spamCount += 1
+    spamCount + 1
     if spamCount >= 4:
       ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. :)\n")
       spamCount = 0
