@@ -3,6 +3,7 @@ import math
 import time
 import random
 import re
+import urllib
 import socket
 
 # Some basic variables used to configure the bot
@@ -35,10 +36,14 @@ def hello(usernick): # This function responds to a user that inputs "Hello Legat
 
 def commands(nick,channel,message): # Some basic commands
   if message.find("#4chan")!=-1:
-    ircsock.send("PRIVMSG %s :%s: 4chan.org/int/balt\r\n" % (channel,nick))
-  elif message.find("#help")!=-1:
+    ircsock.send("PRIVMSG %s :Here you go, fam: 4chan.org/int/balt\r\n" % (channel))
+  elif message.find("#help")!=-1: # Prints some instructions for the bot
     ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats, #clearstats to clear stats, #4chan for latest /balt/ thread.\n" % (channel,nick))
-
+  elif message.find("#todo")!=-1: # Prints the To-Do list
+    ircsock.send("PRIVMSG %s :%s: Just do it, fam!\n" % (channel,nick)) 
+    for line in urllib.urlopen("https://raw.githubusercontent.com/Thorndrop/legatobot/master/todo.txt"):
+      ircsock.send("PRIVMSG %s :" % (channel) + line)
+                 
 def ping(): # Bot will respond to server pings
   ircsock.send("PONG :pingis\n")
 
@@ -144,7 +149,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
 
   # Anti-spam spray
   #if ircmsg.find(:
-  #  spam + 1
+  #  spam += 1
   #  if spam >= 5:
   #    ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
   #  elif spam < 5:
