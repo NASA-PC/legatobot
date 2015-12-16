@@ -7,8 +7,8 @@ import socket
 
 # Some basic variables used to configure the bot
 server = "irc.ircworld.org" # Server
-channel = "#balt2" # Channel
-botnick = "LegatoBot2" # Your bot's nick
+channel = "#balt" # Channel
+botnick = "LegatoBot" # Your bot's nick
 
 # User stats object, makes the stats recallable
 userStats = {}
