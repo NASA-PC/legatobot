@@ -7,8 +7,8 @@ import socket
 
 # Some basic variables used to configure the bot
 server = "irc.ircworld.org" # Server
-channel = "#balt" # Channel
-botnick = "LegatoBot" # Your bot's nick
+channel = "#balt2" # Channel
+botnick = "LegatoBot2" # Your bot's nick
 
 # User stats object, makes the stats recallable
 userStats = {}
@@ -19,16 +19,16 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 "scrotum", "banaan", "equine vaginal cavity", "vagina",
 "punk", "bag", "furry", "error", "fig", "noob", "busta"]
 
-# Anti-Spam Spray
-# spam = 0
-# lastmsg =
+# Spam fuck my shit up
+storedNick = ""
+spamCount = 0
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
-ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://lemonparty.org.\n") # user authentication
+ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://4chan.org/int/balt\n") # user authentication
 ircsock.send("NICK " + botnick + "\n") # Here we actually assign the nick to the bot
 
-# Functions
+# All the functions
 
 def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
   ircsock.send("PRIVMSG " + channel + " :Tere " + usernick + "!\n")
@@ -117,7 +117,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
   channel = ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
 
   # Here we print what's coming from the server
-  # print(ircmsg) Commenting out, just for a test, do we really need it, you know?
+  print(ircmsg)
 
   if ircmsg.find(' PRIVMSG ')!=-1:
     commands(usernick,channel,ircmsg)
@@ -143,11 +143,16 @@ while 1: # Be careful with these! it might send you to an infinite loop
       ircsock.send("\n")
 
   # Anti-spam spray
-  #if ircmsg.find(:
-  #  spam + 1
-  #  if spam >= 5:
-  #    ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
-  #  elif spam < 5:
+  # Don't count the PING though!
+  if usernick == "ING :ee.ircworld.org": # Just like that
+    storedNick = ""
+  if usernick != storedNick:
+    storedNick = usernick
+  elif usernick == storedNick:
+    spamCount += 1
+    if spamCount >= 4:
+      ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. :)\n")
+      spamCount = 0
 
   # Funny reply
   for curse in curses:
