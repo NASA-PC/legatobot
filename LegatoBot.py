@@ -114,14 +114,13 @@ while 1: # Be careful with these! it might send you to an infinite loop
   ircmsg = ircsock.recv(2048) # receive data from the server
   ircmsg = ircmsg.strip('\n\r') # removing any unnecessary linebreaks.
   usernick = ircmsg.split('!')[0][1:]
+  channel=ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
 
   # Here we print what's coming from the server
   # print(ircmsg) Commenting out, just for a test, do we really need it, you know?
 
   if ircmsg.find(' PRIVMSG ')!=-1:
-    nick=ircmsg.split('!')[0][1:]
-    channel=ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
-    commands(nick,channel,ircmsg)
+    commands(usernick,channel,ircmsg)
 
   # if the server pings us then we've got to respond!
   if ircmsg.find("PING :") != -1:
@@ -143,12 +142,12 @@ while 1: # Be careful with these! it might send you to an infinite loop
     else:
       ircsock.send("\n")
 
-#  Anti-spam spray
-#  if ircmsg.find(:
-#    spam + 1
-#    if spam >= 5:
-#      ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
-#    elif spam < 5:
+  #Anti-spam spray
+  #if ircmsg.find(:
+  #  spam + 1
+  #  if spam >= 5:
+  #    ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
+  #  elif spam < 5:
 
   # Funny reply
   for curse in curses:
