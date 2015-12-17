@@ -3,7 +3,8 @@ import math
 import time
 import random
 import re
-import urllib
+# import urllib # don't remove yet, I'll probbly implement it soon
+import sys
 import socket
 
 # Some basic variables used to configure the bot
@@ -38,8 +39,9 @@ def commands(nick,channel,message): # Some basic commands
     ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats #clearstats to clear stats, #4chan for latest /balt/ thread, #todo to see the To-Do list.\n" % (channel,nick))
   elif message.find("#todo")!=-1: # Prints the To-Do list
     ircsock.send("PRIVMSG %s :%s: Just do it, fam!\n" % (channel,nick)) 
-    for line in urllib.urlopen("https://raw.githubusercontent.com/Thorndrop/legatobot/master/todo.txt"):
-      ircsock.send("PRIVMSG %s :" % (channel) + line)
+    #for line in urllib.urlopen("https://raw.githubusercontent.com/Thorndrop/legatobot/master/todo.txt"): # donut fukken remove
+    for line in open("todo.txt"):
+      ircsock.send("PRIVMSG %s :" % (channel) + line + "\n")
                  
 def ping(): # Bot will respond to server pings
   ircsock.send("PONG :pingis\n")
@@ -149,10 +151,10 @@ while 1: # Be careful with these! it might send you to an infinite loop
   #    ircsock.send("PRIVMSG " + channel + " :Hello, " + usernick + "!\n")
 
   # Says Tere or Hello!
-  if ircmsg.lower().find("tere") != -1 and ircmsg.lower().find("legatobot") != -1:
-    ircsock.send("PRIVMSG " + channel + " :" + "tere " + usernick + "\n")
-  if ircmsg.lower().find("hello") != -1 and ircmsg.lower().find("legatobot") != -1:
-    ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + "\n")
+  if ircmsg.lower().find("tere legatobot") != -1:
+    ircsock.send("PRIVMSG " + channel + " :" + "Tere " + usernick + "!\n")
+  if ircmsg.lower().find("hello legatobot") != -1:
+    ircsock.send("PRIVMSG " + channel + " :" + "Hello " + usernick + "!\n")
 
   # If someone says bye, bot says bye to them
   if ircmsg.lower().find("bye") != -1:
@@ -174,7 +176,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
       if spamCount == 10:
         ircsock.send("PRIVMSG " + channel + " :oh wow\n")
       if spamCount == 20:
-        irc.socksend("PRIVMSG " + channel + " :YOU'RE ON FIRE, SON!\n")
+        ircsock.send("PRIVMSG " + channel + " :YOU'RE ON FIRE, SON!\n")
 
   # Shut up if
   if ircmsg.lower().find("shut up") != -1 and ircmsg.lower().find("legatobot") != -1:
