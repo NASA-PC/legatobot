@@ -30,9 +30,6 @@ ircsock.send("NICK " + botnick + "\n") # Here we actually assign the nick to the
 
 # All the functions
 
-def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
-  ircsock.send("PRIVMSG " + channel + " :Tere " + usernick + "!\n")
-
 def commands(nick,channel,message): # Some basic commands
   if message.find("#4chan")!=-1:
     ircsock.send("PRIVMSG %s :%s: 4chan.org/int/balt\r\n" % (channel,nick))
@@ -130,9 +127,15 @@ while 1: # Be careful with these! it might send you to an infinite loop
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
 
-  # If we can find "Hello LegatoBot" it will call the function hello()
-  if ircmsg.lower().find(":tere " + botnick) != -1 and ircmsg.lower().find(":hello " + botnick) != -1:
-    hello(usernick)
+  # Hello if
+  #if ircmsg.lower().find("tere") != -1:
+  #  if ircmsg.find(botnick) != -1:
+  #    ircsock.send("PRIVMSG " + channel + " :tere " + usernick + "!\n")
+  
+  # KEEP OUT
+  
+  #if ircmsg.lower().find("hello") != -1 and ircmsg.find(botnick) != -1:
+  #  ircsock.send("PRIVMSG " + channel + " :hello " + usernick + "!\n")
 
   # If someone says bye, bot says bye to them
   if ircmsg.lower().find("bye") != -1:
@@ -144,18 +147,21 @@ while 1: # Be careful with these! it might send you to an infinite loop
 
   # Anti-spam spray
   # Don't count the PING though!
-  if usernick == "ING :ee.ircworld.org": # Just like that
-    storedNick = ""
-  if usernick != storedNick:
-    storedNick = usernick
-    spamCount = 1
-  elif usernick == storedNick:
-    spamCount += 1
-    if spamCount == 5:
-      ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. ;)\n")
-    if spamCount == 10:
-      ircsock.send("PRIVMSG " + channel + " :oh wow\n")
+  if usernick != "ING :ee.ircworld.org": # Just like that
+    if usernick != storedNick:
+      storedNick = usernick
+      spamCount = 1
+    elif usernick == storedNick:
+      spamCount += 1
+      if spamCount == 5:
+        ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. ;)\n")
+      if spamCount == 10:
+        ircsock.send("PRIVMSG " + channel + " :oh wow\n")
 
+  # Channel if
+  if ircmsg.lower().find("youtu") != -1:
+    ircsock.send("PRIVMSG " + channel + " :only on my channel\n")
+    
   # Funny reply
   for curse in curses:
     if ircmsg.lower().find(curse) != -1 and ircmsg.lower().find("you") != -1:
