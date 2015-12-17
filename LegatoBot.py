@@ -20,19 +20,16 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 "scrotum", "banaan", "equine vaginal cavity", "vagina",
 "punk", "bag", "furry", "error", "fig", "noob", "busta"]
 
-# Anti-Spam Spray
-# spam = 0
-# lastmsg =
+# Spam fuck my shit up
+storedNick = ""
+spamCount = 1
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
-ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://lemonparty.org.\n") # user authentication
+ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://4chan.org/int/balt\n") # user authentication
 ircsock.send("NICK " + botnick + "\n") # Here we actually assign the nick to the bot
 
-# Functions
-
-def hello(usernick): # This function responds to a user that inputs "Hello LegatoBot"
-  ircsock.send("PRIVMSG " + channel + " :Tere " + usernick + "!\n")
+# All the functions
 
 def commands(nick,channel,message): # Some basic commands
   if message.find("#4chan")!=-1:
@@ -122,7 +119,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
   channel = ircmsg.split(' PRIVMSG ')[-1].split(' :')[0]
 
   # Here we print what's coming from the server
-  # print(ircmsg) Commenting out, just for a test, do we really need it, you know?
+  print(ircmsg)
 
   if ircmsg.find(' PRIVMSG ')!=-1:
     commands(usernick,channel,ircmsg)
@@ -135,9 +132,15 @@ while 1: # Be careful with these! it might send you to an infinite loop
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
 
-  # If we can find "Hello LegatoBot" it will call the function hello()
-  if ircmsg.lower().find(":tere " + botnick) != -1 and ircmsg.lower().find(":hello " + botnick) != -1:
-    hello(usernick)
+  # Hello if
+  #if ircmsg.lower().find("tere") != -1:
+  #  if ircmsg.find(botnick) != -1:
+  #    ircsock.send("PRIVMSG " + channel + " :tere " + usernick + "!\n")
+  
+  # KEEP OUT
+  
+  #if ircmsg.lower().find("hello") != -1 and ircmsg.find(botnick) != -1:
+  #  ircsock.send("PRIVMSG " + channel + " :hello " + usernick + "!\n")
 
   # If someone says bye, bot says bye to them
   if ircmsg.lower().find("bye") != -1:
@@ -154,6 +157,22 @@ while 1: # Be careful with these! it might send you to an infinite loop
   #    ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
   #  elif spam < 5:
 
+  # Don't count the PING though!
+  if usernick != "ING :ee.ircworld.org": # Just like that
+    if usernick != storedNick:
+      storedNick = usernick
+      spamCount = 1
+    elif usernick == storedNick:
+      spamCount += 1
+      if spamCount == 5:
+        ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. ;)\n")
+      if spamCount == 10:
+        ircsock.send("PRIVMSG " + channel + " :oh wow\n")
+
+  # Channel if
+  if ircmsg.lower().find("youtu") != -1:
+    ircsock.send("PRIVMSG " + channel + " :only on my channel\n")
+    
   # Funny reply
   for curse in curses:
     if ircmsg.lower().find(curse) != -1 and ircmsg.lower().find("you") != -1:
