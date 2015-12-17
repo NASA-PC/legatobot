@@ -178,6 +178,8 @@ while 1: # Be careful with these! it might send you to an infinite loop
         ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. ;)\n")
       if spamCount == 10:
         ircsock.send("PRIVMSG " + channel + " :oh wow\n")
+      if spamCount == 20:
+        irc.socksend("PRIVMSG " + channel + " :YOU'RE ON FIRE, SON!\n")
 
   # Channel if
   if ircmsg.lower().find("youtu") != -1:
