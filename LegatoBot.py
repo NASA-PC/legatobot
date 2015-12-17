@@ -21,7 +21,7 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 
 # Spam fuck my shit up
 storedNick = ""
-spamCount = 0
+spamCount = 1
 
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
@@ -148,12 +148,13 @@ while 1: # Be careful with these! it might send you to an infinite loop
     storedNick = ""
   if usernick != storedNick:
     storedNick = usernick
-    spamCount = 0
+    spamCount = 1
   elif usernick == storedNick:
-    spamCount + 1
-    if spamCount >= 4:
-      ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. :)\n")
-      spamCount = 0
+    spamCount += 1
+    if spamCount == 5:
+      ircsock.send("PRIVMSG " + channel + " :Shh, " + usernick + ", calm down. ;)\n")
+    if spamCount == 10:
+      ircsock.send("PRIVMSG " + channel + " :oh wow\n")
 
   # Funny reply
   for curse in curses:
