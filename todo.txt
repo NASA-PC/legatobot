@@ -3,3 +3,4 @@
 (B) Add +stats to a file
 Welcome/help message when bot enters the channel
 Add name generators etc 
+Random quotes once per hour

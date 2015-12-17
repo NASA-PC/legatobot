@@ -36,9 +36,9 @@ def hello(usernick): # This function responds to a user that inputs "Hello Legat
 
 def commands(nick,channel,message): # Some basic commands
   if message.find("#4chan")!=-1:
-    ircsock.send("PRIVMSG %s :Here you go, fam: 4chan.org/int/balt\r\n" % (channel))
+    ircsock.send("PRIVMSG %s :Here you go, fam: https://www.4chan.org/int/balt\r\n" % (channel))
   elif message.find("#help")!=-1: # Prints some instructions for the bot
-    ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats, #clearstats to clear stats, #4chan for latest /balt/ thread.\n" % (channel,nick))
+    ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times,\n #stats to generate stats,\n #clearstats to clear stats,\n #4chan for latest /balt/ thread,\n #todo to see the To-Do list.\n" % (channel,nick))
   elif message.find("#todo")!=-1: # Prints the To-Do list
     ircsock.send("PRIVMSG %s :%s: Just do it, fam!\n" % (channel,nick)) 
     for line in urllib.urlopen("https://raw.githubusercontent.com/Thorndrop/legatobot/master/todo.txt"):
