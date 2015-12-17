@@ -24,9 +24,6 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 storedNick = ""
 spamCount = 1
 
-# Hello counter
-chello = 0
-
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://4chan.org/int/balt\n") # user authentication
@@ -151,13 +148,11 @@ while 1: # Be careful with these! it might send you to an infinite loop
   #  if ircmsg.find(botnick) != -1:
   #    ircsock.send("PRIVMSG " + channel + " :Hello, " + usernick + "!\n")
 
-  # Says Tere or Hello! Could use a more efficient solution than OR tbh.
-  if ircmsg.find("tere " + botnick) != -1 or ircmsg.find("Tere " + botnick) != -1:
-    chello =+ 1
-    hello(chello,usernick)
-  if ircmsg.find("hello " + botnick) != -1 or ircmsg.find("Hello "+ botnick) != -1:
-    chello =+ 2
-    hello(chello,usernick)
+  # Says Tere or Hello!
+  if ircmsg.lower().find("tere") != -1 and ircmsg.lower().find("legatobot") != -1:
+    ircsock.send("PRIVMSG " + channel + " :" + "tere " + usernick + "\n")
+  if ircmsg.lower().find("hello") != -1 and ircmsg.lower().find("legatobot") != -1:
+    ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + "\n")
 
   # If someone says bye, bot says bye to them
   if ircmsg.lower().find("bye") != -1:
@@ -181,6 +176,10 @@ while 1: # Be careful with these! it might send you to an infinite loop
       if spamCount == 20:
         irc.socksend("PRIVMSG " + channel + " :YOU'RE ON FIRE, SON!\n")
 
+  # Shut up if
+  if ircmsg.lower().find("shut up") != -1 and ircmsg.lower().find("legatobot") != -1:
+    ircsock.send("PRIVMSG " + channel + " :fuck off\n")
+    
   # Channel if
   if ircmsg.lower().find("youtu") != -1:
     ircsock.send("PRIVMSG " + channel + " :only on my channel\n")
