@@ -8,8 +8,8 @@ import socket
 
 # Some basic variables used to configure the bot
 server = "irc.ircworld.org" # Server
-channel = "#balt" # Channel
-botnick = "LegatoBot" # Your bot's nick
+channel = "#balt2" # Channel
+botnick = "LegatoBot2" # Your bot's nick
 
 # User stats object, makes the stats recallable
 userStats = {}
@@ -140,6 +140,16 @@ while 1: # Be careful with these! it might send you to an infinite loop
   # If anonkun joins, bot says hi :3
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
+  
+  # Tere if
+  #if ircmsg.lower().find("tere") != -1:
+  #  if ircmsg.find(botnick) != -1:
+  #    ircsock.send("PRIVMSG " + channel + " :Tere, " + usernick + "!\n")
+  #
+  ## Hello if
+  #if ircmsg.lower().find("hello") != -1:
+  #  if ircmsg.find(botnick) != -1:
+  #    ircsock.send("PRIVMSG " + channel + " :Hello, " + usernick + "!\n")
 
   # Says Tere or Hello! Could use a more efficient solution than OR tbh.
   if ircmsg.find("tere " + botnick) != -1 or ircmsg.find("Tere " + botnick) != -1:
