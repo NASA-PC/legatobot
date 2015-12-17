@@ -24,6 +24,9 @@ curses = ["homo", "dildo", "scrub", "penishole", "fag",
 storedNick = ""
 spamCount = 1
 
+# Hello counter
+chello = 0
+
 ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ircsock.connect((server, 6667)) # Here we connect to the server using the port 6667
 ircsock.send("USER " + botnick + " " + botnick + " " + botnick + " :http://4chan.org/int/balt\n") # user authentication
@@ -32,10 +35,10 @@ ircsock.send("NICK " + botnick + "\n") # Here we actually assign the nick to the
 # All the functions
 
 def commands(nick,channel,message): # Some basic commands
-  if message.find("#4chan")!=-1:
+  if message.find("#4chan")!=-1: # Gives the link to the latest /balt/ thread.
     ircsock.send("PRIVMSG %s :Here you go, fam: https://www.4chan.org/int/balt\r\n" % (channel))
   elif message.find("#help")!=-1: # Prints some instructions for the bot
-    ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times,\n #stats to generate stats,\n #clearstats to clear stats,\n #4chan for latest /balt/ thread,\n #todo to see the To-Do list.\n" % (channel,nick))
+    ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats #clearstats to clear stats, #4chan for latest /balt/ thread, #todo to see the To-Do list.\n" % (channel,nick))
   elif message.find("#todo")!=-1: # Prints the To-Do list
     ircsock.send("PRIVMSG %s :%s: Just do it, fam!\n" % (channel,nick)) 
     for line in urllib.urlopen("https://raw.githubusercontent.com/Thorndrop/legatobot/master/todo.txt"):
@@ -44,12 +47,18 @@ def commands(nick,channel,message): # Some basic commands
 def ping(): # Bot will respond to server pings
   ircsock.send("PONG :pingis\n")
 
-def sendmsg(chan , msg): # This is the send message function, it simply sends messages to the channel.
+def sendmsg(chan,msg): # This is the send message function, it simply sends messages to the channel.
   ircsock.send("PRIVMSG " + chan + " :" + msg + "\n")
 
 def joinchan(chan): # This function is used to join channels.
   ircsock.send("JOIN " + chan + "\n")
 
+def hello(chello,usernick):
+  if chello == 1:
+    ircsock.send("PRIVMSG " + channel + " :" + "Tere " + usernick + "!\n")
+  elif chello == 2:
+    ircsock.send("PRIVMSG " + channel + " :" + "Hello " + usernick + "!\n")
+  
 def rollDie(numberOfDice, typeOfDie, usernick): # Dice rolling function
   if typeOfDie == "0":
     ircsock.send("PRIVMSG " + channel + " :" + ":^)\n")
@@ -132,15 +141,13 @@ while 1: # Be careful with these! it might send you to an infinite loop
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
 
-  # Hello if
-  #if ircmsg.lower().find("tere") != -1:
-  #  if ircmsg.find(botnick) != -1:
-  #    ircsock.send("PRIVMSG " + channel + " :tere " + usernick + "!\n")
-  
-  # KEEP OUT
-  
-  #if ircmsg.lower().find("hello") != -1 and ircmsg.find(botnick) != -1:
-  #  ircsock.send("PRIVMSG " + channel + " :hello " + usernick + "!\n")
+  # Says Tere or Hello! Could use a more efficient solution than OR tbh.
+  if ircmsg.find("tere " + botnick) != -1 or ircmsg.find("Tere " + botnick) != -1:
+    chello =+ 1
+    hello(chello,usernick)
+  if ircmsg.find("hello " + botnick) != -1 or ircmsg.find("Hello "+ botnick) != -1:
+    chello =+ 2
+    hello(chello,usernick)
 
   # If someone says bye, bot says bye to them
   if ircmsg.lower().find("bye") != -1:
@@ -149,13 +156,6 @@ while 1: # Be careful with these! it might send you to an infinite loop
       ircsock.send("!\n")
     else:
       ircsock.send("\n")
-
-  # Anti-spam spray
-  #if ircmsg.find(:
-  #  spam += 1
-  #  if spam >= 5:
-  #    ircsock.send("PRIVMSG " + channel + " :" + usernick + ": Shh, calm down. :)\n")
-  #  elif spam < 5:
 
   # Don't count the PING though!
   if usernick != "ING :ee.ircworld.org": # Just like that
