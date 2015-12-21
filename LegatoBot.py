@@ -38,11 +38,11 @@ def commands(nick,channel,message): # Some basic commands
   elif message.find("#help")!=-1: # Prints some instructions for the bot
     ircsock.send("PRIVMSG %s :%s: #XdY to roll Y-sided dice x times, #stats to generate stats #clearstats to clear stats, #4chan for latest /balt/ thread, #todo to see the To-Do list.\n" % (channel,nick))
   elif message.find("#todo")!=-1: # Prints the To-Do list
-    ircsock.send("PRIVMSG %s :%s: Just do it, fam!\n" % (channel,nick)) 
+    ircsock.send("PRIVMSG %s :%s: Just do it, fam!\n" % (channel,nick))
     #for line in urllib.urlopen("https://raw.githubusercontent.com/Thorndrop/legatobot/master/todo.txt"): # donut fukken remove
     for line in open("todo.txt"):
       ircsock.send("PRIVMSG %s :" % (channel) + line + "\n")
-                 
+
 def ping(): # Bot will respond to server pings
   ircsock.send("PONG :pingis\n")
 
@@ -57,7 +57,7 @@ def hello(chello,usernick):
     ircsock.send("PRIVMSG " + channel + " :" + "Tere " + usernick + "!\n")
   elif chello == 2:
     ircsock.send("PRIVMSG " + channel + " :" + "Hello " + usernick + "!\n")
-  
+
 def rollDie(numberOfDice, typeOfDie, usernick): # Dice rolling function
   if typeOfDie == "0":
     ircsock.send("PRIVMSG " + channel + " :" + ":^)\n")
@@ -139,7 +139,7 @@ while 1: # Be careful with these! it might send you to an infinite loop
   # If anonkun joins, bot says hi :3
   if ircmsg.find("JOIN") != -1 and ircmsg.lower().find("anonkun") != -1:
     ircsock.send("PRIVMSG " + channel + " :" + "hello " + usernick + " :3\n")
-  
+
   # Tere if
   #if ircmsg.lower().find("tere") != -1:
   #  if ircmsg.find(botnick) != -1:
@@ -181,11 +181,11 @@ while 1: # Be careful with these! it might send you to an infinite loop
   # Shut up if
   if ircmsg.lower().find("shut up") != -1 and ircmsg.lower().find("legatobot") != -1:
     ircsock.send("PRIVMSG " + channel + " :fuck off\n")
-    
+
   # Channel if
-  if ircmsg.lower().find("youtu") != -1:
+  if ircmsg.lower().find("http://") != -1 and ircmsg.lower().find("youtu") != -1:
     ircsock.send("PRIVMSG " + channel + " :only on my channel\n")
-    
+
   # Funny reply
   for curse in curses:
     if ircmsg.lower().find(curse) != -1 and ircmsg.lower().find("you") != -1:
