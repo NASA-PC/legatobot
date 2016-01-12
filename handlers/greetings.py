@@ -13,7 +13,7 @@ class Handler:
         msg.isAnonkun = False;
         msg.type = '';
 
-        if(msg.command == 'JOIN' and text.find('anonkun') != -1):
+        if(msg.command == 'JOIN' and msg.user == 'anonkun[lt]'):
             msg.isAnonkun = True;
             return True;
 
