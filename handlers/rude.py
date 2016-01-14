@@ -1,3 +1,6 @@
+'''
+Some silly and innocent bullyi... jokes. :)
+'''
 class Handler:
     priority = -1;
 
@@ -8,21 +11,26 @@ class Handler:
     "punk", "bag", "furry", "error", "fig", "noob", "busta"]
 
     def __init__(self, brain):
-        self.brain = brain; #brain is not used in this example, but it is usefull if you want i.e the name of the bot
+        self.brain = brain; # Brain is not used in this example, but it is usefull if you want i.e the name of the bot
 
 
     def canHandle(self, msg):
-        msg.text = ''
+        msg.text = ""
 
-        if(msg.command == 'PRIVMSG'):
+        if(msg.command == "PRIVMSG"):
             # Shut up if
-            if(msg.contains('shut up') and msg.contains(self.brain.botnick)):
-                msg.text = 'fuck off';
+            if(msg.contains("shut up") and msg.contains(self.brain.botnick)):
+                msg.text = "fuck off";
                 return True;
 
             # Channel if
-            if(msg.contains('http://') and msg.contains('youtu')):
-                msg.text = 'only on my channel';
+            if(msg.contains("http://") and msg.contains("youtu")):
+                msg.text = "only on my channel";
+                return True;
+                
+            # Channel if
+            if(msg.contains("finn"):
+                msg.text = "Respect our environment, put a finn in the bin!";
                 return True;
 
             # Funny reply
