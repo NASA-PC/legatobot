@@ -1,10 +1,11 @@
+'''
+Quirky adventure game for us nerds, amirite? ;).
+'''
+
 import re
 import math
 import random
 
-'''
-Some geeks' game.
-'''
 userStats = {}
 
 def rollDie(resp, numberOfDice, typeOfDie, usernick): # Dice rolling function
