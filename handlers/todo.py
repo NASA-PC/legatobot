@@ -1,5 +1,5 @@
 '''
-Displays the To-Do list.
+Displays the To-Do list for users feeling productive.
 '''
 class Handler:
     def __init__(self, brain):
