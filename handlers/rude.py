@@ -28,8 +28,8 @@ class Handler:
                 msg.text = "only on my channel";
                 return True;
                 
-            # Channel if
-            if(msg.contains("finn"):
+            # Finns if
+            if(msg.contains("finn")):
                 msg.text = "Respect our environment, put a finn in the bin!";
                 return True;
 
