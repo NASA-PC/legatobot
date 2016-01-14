@@ -1,3 +1,6 @@
+'''
+Points users to important websites.
+'''
 class Handler:
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is usefull if you want i.e the name of the bot
