@@ -52,16 +52,16 @@ PING :ee.ircworld.org
 def parseIRCLine(line):
     result = ParsedLine();
 
-    line = line.split(':', 2); #converts to ['', command, msg] or ['', command] or [command]
+    line = line.split(':', 2); # Converts to ['', command, msg] or ['', command] or [command]
     if(len(line) > 0 and line[0] == ''):
-        del line[0]; #removes empty string
+        del line[0]; # Removes empty string
 
     if(len(line) == 2):
         result.msg = line[1].strip();
         del line[1];
 
     if(len(line) == 1):
-        command = line[0].strip().split(' '); #converts to [source, COMMAND, user/room]
+        command = line[0].strip().split(' '); # Converts to [source, COMMAND, user/room]
 
         if(len(command) >= 2):
             result.source = command[0];
@@ -86,7 +86,7 @@ class BrainsOfBot:
         self.handlers = []
         self.debug = True
         self.resp = Response(self);
-        self.wasLastMsgHandled = False; #not sure if anybody will ever need it. Can be used to check if user is responding to the bot
+        self.wasLastMsgHandled = False; # Not sure if anybody will ever need it. Can be used to check if user is responding to the bot
 
     def registerHandler(self, handler):
         if(hasattr(self, 'ircsock')):
@@ -107,9 +107,9 @@ class BrainsOfBot:
         if(not hasattr(self, 'ircsock')):
             print ('Bot was not yet started. Ignoring.');
             return;
-        msg = msg.strip().replace('\r', '').replace('\n', ' '); #newlines are forbiden
+        msg = msg.strip().replace('\r', '').replace('\n', ' '); # New lines are forbiden
 
-        ##print ('sending msg\n>{0}<'.format(msg))
+        #print ('sending msg\n>{0}<'.format(msg))
         self.ircsock.send((msg + "\n").encode(encoding='UTF-8'))
 
     def _send(self, msg, target = ''): # This is the send message function, it simply sends messages to the channel.
@@ -119,7 +119,7 @@ class BrainsOfBot:
         self._sendCommand("PRIVMSG " + target + " :" + msg)
 
     def _prepareHandlers(self):
-        self.handlers.sort(key=lambda handler: handler.priority, reverse=True) #sort by priority
+        self.handlers.sort(key=lambda handler: handler.priority, reverse=True) # Sort by priority
 
     def ping(self, msg): # Bot will respond to server pings
         self._sendCommand("PONG :" + msg.msg)
@@ -134,12 +134,12 @@ class BrainsOfBot:
         self._sendCommand("JOIN " + self.channel)# Joins the channel using the functions we previously defined
 
         self._prepareHandlers();
-        #start event loop
+        # Start event loop
         while 1: # Be careful with these! it might send you to an infinite loop
-            ircmsg = self.ircsock.recv(2048).decode(encoding='UTF-8') # receive data from the server
-            ircmsg = ircmsg.strip('\n\r') # removing any unnecessary linebreaks.
+            ircmsg = self.ircsock.recv(2048).decode(encoding='UTF-8') # Receive data from the server
+            ircmsg = ircmsg.strip('\n\r') # Removing any unnecessary linebreaks.
 
-            if(len(ircmsg) <= 0): #disconnected
+            if(len(ircmsg) <= 0): # Disconnected
                 break;
 
             if(self.debug):
@@ -148,7 +148,7 @@ class BrainsOfBot:
 
             msg = parseIRCLine(ircmsg)
 
-            if(msg.command == 'PING'): #ping is special. Brain can handle it by itself
+            if(msg.command == 'PING'): # Ping is special. Brain can handle it by itself
                 self.ping(msg);
                 continue;
 
