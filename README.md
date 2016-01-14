@@ -17,7 +17,7 @@ Python 2.7
 * ArnieBoi[SWE]
 * suukinni
 * Thorndrop
-* J3remy
+* J3remy (http://ow.ly/X2Z89)
 * kawaii anonkun
 
 # Handlers
