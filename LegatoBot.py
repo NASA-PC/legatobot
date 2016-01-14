@@ -7,7 +7,7 @@ modules = os.listdir('handlers');
 modules.sort();
 for file in modules:
     if(file.endswith('.py')):
-        file = file[:-3] #remove .py
+        file = file[:-3] # Remove .py
 
         module = __import__('handlers.' + file).__getattribute__(file);
         if('Handler' in dir(module)):
