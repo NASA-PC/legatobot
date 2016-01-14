@@ -1,7 +1,6 @@
 '''
 Greets anonkun and anybody who greets bot.
 '''
-
 class Handler:
     priority = 10;
 
