@@ -11,7 +11,7 @@ class Handler:
         self.spamCount = 1;
 
     def canHandle(self, msg):
-        return msg.command == 'PRIVMSG';
+        return msg.command == "PRIVMSG";
 
 
     def handle(self, msg, resp):
@@ -23,10 +23,10 @@ class Handler:
         self.lastNick = msg.user;
 
         if(self.spamCount == 5):
-            resp.send('Shh, {0}, calm down.'.format(msg.user), msg.re());
+            resp.send("Shh, {0}, calm down.".format(msg.user), msg.re());
 
         if(self.spamCount == 10):
-            resp.send('oh wow', msg.re());
+            resp.send("oh wow", msg.re());
 
         if(self.spamCount == 20):
             resp.send("YOU'RE ON FIRE, FAM!!!", msg.re());
