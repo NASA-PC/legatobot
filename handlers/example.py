@@ -2,7 +2,7 @@
 ---
 Example handler.
 This handler sends back parsed message to user who posted private
-message 'echo' to the bot.
+message "echo" to the bot.
 ---
 msg = {
     command = PRIVMSG|QUIT|JOIN
@@ -32,10 +32,10 @@ class Handler:
 
 
     def canHandle(self, msg):
-        return msg.command == 'PRIVMSG' and not msg.isTargetRoom() and msg.msg == 'echo';
+        return msg.command == "PRIVMSG" and not msg.isTargetRoom() and msg.msg == "echo";
 
 
     def handle(self, msg, resp):
         responseText = msg.toString();
-        print ('Sending response: ' + responseText);
+        print ("Sending response: " + responseText);
         resp.send(responseText, msg.re()); # Send private message to sender user
