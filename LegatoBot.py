@@ -12,9 +12,9 @@ for file in modules:
         module = __import__("handlers." + file).__getattribute__(file);
         if("Handler" in dir(module)):
             brain.registerHandler(module.Handler(brain));
-            print ("module "{0}" registered".format(file));
+            print ("module '{0}' registered".format(file));
         else:
-            print ("Handler "{0}" does not have class Handler in it. Ignored.".format(file));
+            print ("Handler '{0}' does not have class Handler in it. Ignored.".format(file));
 
 
 brain.start();
