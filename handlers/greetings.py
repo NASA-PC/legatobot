@@ -7,7 +7,6 @@ class Handler:
     def __init__(self, brain):
         self.brain = brain;
 
-
     def canHandle(self, msg):
         msg.isAnonkun = False;
         msg.type = "";
@@ -30,7 +29,6 @@ class Handler:
                 return True;
 
         return False;
-
 
     def handle(self, msg, resp):
         if(msg.isAnonkun):

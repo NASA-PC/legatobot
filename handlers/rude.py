@@ -11,8 +11,7 @@ class Handler:
     "punk", "bag", "furry", "error", "fig", "noob", "busta"]
 
     def __init__(self, brain):
-        self.brain = brain; # Brain is not used in this example, but it is usefull if you want i.e the name of the bot
-
+        self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
 
     def canHandle(self, msg):
         msg.text = ""
@@ -27,7 +26,7 @@ class Handler:
             if(msg.contains("http://") and msg.contains("youtu")):
                 msg.text = "only on my channel";
                 return True;
-                
+
             # Finns if
             if(msg.contains("finn")):
                 msg.text = "Respect our environment, put a finn in the bin!";
@@ -44,7 +43,6 @@ class Handler:
                         return True;
 
         return False;
-
 
     def handle(self, msg, resp):
         resp.send(msg.text, msg.re());

@@ -1,5 +1,5 @@
 if __name__ == "__main__":
-    print ("You are running wrong file! You should run LegatoBot.py!")
+    print ("You are running the wrong file! You should run LegatoBot.py!")
 
 import socket
 
@@ -105,7 +105,7 @@ class BrainsOfBot:
         if(not hasattr(self, "ircsock")):
             print ("Bot was not yet started. Ignoring.");
             return;
-        msg = msg.strip().replace("\r", "").replace("\n", " "); # New lines are forbiden
+        msg = msg.strip().replace("\r", "").replace("\n", " "); # Newlines are forbiden
 
         #print ('sending msg\n>{0}<'.format(msg))
         self.ircsock.send((msg + "\n").encode(encoding="UTF-8"))
@@ -127,15 +127,15 @@ class BrainsOfBot:
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.ircsock.connect((self.server, self.port)) # Here we connect to the server
 
-        self._sendCommand("USER " + self.botnick + " " + self.botnick + " " + self.botnick + " :http://4chan.org/int/balt") # user authentication
+        self._sendCommand("USER " + self.botnick + " " + self.botnick + " " + self.botnick + " :http://4chan.org/int/balt") # User authentication
         self._sendCommand("NICK " + self.botnick) # Here we actually assign the nick to the bot
-        self._sendCommand("JOIN " + self.channel)# Joins the channel using the functions we previously defined
+        self._sendCommand("JOIN " + self.channel) # Joins the channel using the functions we previously defined
 
         self._prepareHandlers();
         # Start event loop
-        while 1: # Be careful with these! it might send you to an infinite loop
+        while 1: # Be careful with these! It might send you into an infinite loop
             ircmsg = self.ircsock.recv(2048).decode(encoding="UTF-8") # Receive data from the server
-            ircmsg = ircmsg.strip("\n\r") # Removing any unnecessary linebreaks.
+            ircmsg = ircmsg.strip("\n\r") # Removing any unnecessary linebreaks
 
             if(len(ircmsg) <= 0): # Disconnected
                 break;

@@ -65,11 +65,9 @@ def clearStats(resp, usernick): # Clears stored stats for user
         del userStats[usernick]
         resp.send("Stats cleared for " + usernick + "\n")
 
-
 class Handler:
     def __init__(self, brain):
-        self.brain = brain; # Brain is not used in this example, but it is usefull if you want i.e the name of the bot
-
+        self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
 
     def canHandle(self, msg):
         return msg.command == "PRIVMSG" and (re.search(r"#\d[dD]\d", msg.msg) or msg.msg == "#stats" or msg.msg == "#clearstats");

@@ -1,7 +1,7 @@
-(A) Todobot - a bot to manage interface with todo.txt
+(A) todo.py - a handler to interface with todo.txt
 (A) Keep sorting the same on +stats @arnie
 (B) Add +stats to a file
 Weather check
 Wikipedia search
 Welcome/help message when bot enters the channel
-Add name generators etc 
+Add name generators etc
