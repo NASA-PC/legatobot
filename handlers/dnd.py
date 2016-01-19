@@ -1,10 +1,10 @@
+'''
+Quirky adventure game for us nerds, amirite? ;).
+'''
 import re
 import math
 import random
 
-'''
-Some geeks' game.
-'''
 userStats = {}
 
 def rollDie(resp, numberOfDice, typeOfDie, usernick): # Dice rolling function
@@ -65,21 +65,19 @@ def clearStats(resp, usernick): # Clears stored stats for user
         del userStats[usernick]
         resp.send("Stats cleared for " + usernick + "\n")
 
-
 class Handler:
     def __init__(self, brain):
-        self.brain = brain; #brain is not used in this example, but it is usefull if you want i.e the name of the bot
-
+        self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
 
     def canHandle(self, msg):
-        return msg.command == 'PRIVMSG' and (re.search(r'#\d[dD]\d', msg.msg) or msg.msg == '#stats' or msg.msg == '#clearstats');
+        return msg.command == "PRIVMSG" and (re.search(r"#\d[dD]\d", msg.msg) or msg.msg == "#stats" or msg.msg == "#clearstats");
 
     def handle(self, msg, resp):
-        if(msg.msg == '#stats'):
+        if(msg.msg == "#stats"):
             rollStats(resp, msg.user);
             return;
 
-        if(msg.msg == '#clearstats'):
+        if(msg.msg == "#clearstats"):
             clearStats(resp, msg.user);
             return;
 
@@ -88,14 +86,14 @@ class Handler:
         # Gives all the words a number
         def indexOfRoll(the_list, substring):
             for i, s in enumerate(the_list):
-                if re.search(r'#\d[dD]\d', s):
+                if re.search(r"#\d[dD]\d", s):
                     return i
             return -1
 
         # Creates dieRoll variables
-        dieRoll = re.split(r'[dD]', splitMessage[indexOfRoll(splitMessage, "#")])
+        dieRoll = re.split(r"[dD]", splitMessage[indexOfRoll(splitMessage, "#")])
 
         # Rolls the die somehow???
-        rollDie(resp, re.sub('[^0-9]','', dieRoll[0]), re.sub('[^0-9]','', dieRoll[1]), msg.user)
+        rollDie(resp, re.sub("[^0-9]","", dieRoll[0]), re.sub("[^0-9]","", dieRoll[1]), msg.user)
 
         pass;

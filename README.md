@@ -2,6 +2,12 @@
 
 Simple IRC bot for D&D and some various minor things.
 
+# How to use
+
+1) Configure the connection details etc. @ main.py according to your needs
+
+2) Run the LegatoBot.py
+
 # Dependencies
 
 Python 2.7
@@ -11,7 +17,7 @@ Python 2.7
 * ArnieBoi[SWE]
 * suukinni
 * Thorndrop
-* J3remy
+* J3remy (http://ow.ly/X2Z89)
 * kawaii anonkun
 
 # Handlers

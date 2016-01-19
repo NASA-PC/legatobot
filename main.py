@@ -1,22 +1,22 @@
 if __name__ == "__main__":
-    print ('You are running wrong file! You should run LegatoBot!')
+    print ("You are running the wrong file! You should run LegatoBot.py!")
 
 import socket
 
 class ParsedLine:
 
     def __init__(self):
-         self.command = ''
-         self.source = ''
-         self.user = ''
-         self.target = ''
-         self.msg = ''
+         self.command = ""
+         self.source = ""
+         self.user = ""
+         self.target = ""
+         self.msg = ""
 
     def contains(self, txt):
         return self.msg.lower().find(txt.lower()) != -1;
 
     def isTargetRoom(self):
-        return self.target.startswith('#');
+        return self.target.startswith("#");
 
     def re(self):
         if (self.isTargetRoom()):
@@ -24,12 +24,12 @@ class ParsedLine:
         return self.user;
 
     def toString(self):
-        result = '{\n';
+        result = "{\n";
 
         properties = vars(self);
         for prop in properties:
-            if (properties[prop] != ''):
-                result += '{0}: {1}\n'.format(prop, properties[prop]);
+            if (properties[prop] != ""):
+                result += "{0}: {1}\n".format(prop, properties[prop]);
         result += '}';
         return result;
 
@@ -37,7 +37,6 @@ class Response:
     def __init__(self, brain):
         self.send = brain._send;
         self.sendCommand = brain._sendCommand;
-
 '''
 Examples:
 :anonnkun[lt]!~bzz@sdedxu-268-70-64-59.inturbo.lt PRIVMSG LegatoBot2 :asdf
@@ -48,24 +47,23 @@ Examples:
 :pasta!uid71692@bqeguxm.irccloud.com PRIVMSG #balt :sherlock theories
 PING :ee.ircworld.org
 '''
-
 def parseIRCLine(line):
     result = ParsedLine();
 
-    line = line.split(':', 2); #converts to ['', command, msg] or ['', command] or [command]
-    if(len(line) > 0 and line[0] == ''):
-        del line[0]; #removes empty string
+    line = line.split(":", 2); # Converts to ['', command, msg] or ['', command] or [command]
+    if(len(line) > 0 and line[0] == ""):
+        del line[0]; # Removes empty string
 
     if(len(line) == 2):
         result.msg = line[1].strip();
         del line[1];
 
     if(len(line) == 1):
-        command = line[0].strip().split(' '); #converts to [source, COMMAND, user/room]
+        command = line[0].strip().split(" "); # Converts to [source, COMMAND, user/room]
 
         if(len(command) >= 2):
             result.source = command[0];
-            result.user = result.source.split('!')[0];
+            result.user = result.source.split("!")[0];
             result.command = command[1];
 
         if(len(command) == 3):
@@ -82,37 +80,37 @@ class BrainsOfBot:
         self.server = "irc.ircworld.org" # Server
         self.port = 6667
         self.channel = "#balt" # Channel
-        self.botnick = "LegatoBot2" # Your bot's nick
+        self.botnick = "LegatoBot" # Your bot's nick
         self.handlers = []
         self.debug = True
         self.resp = Response(self);
-        self.wasLastMsgHandled = False; #not sure if anybody will ever need it. Can be used to check if user is responding to the bot
+        self.wasLastMsgHandled = False; # Not sure if anybody will ever need it. Can be used to check if user is responding to the bot
 
     def registerHandler(self, handler):
-        if(hasattr(self, 'ircsock')):
-            print ('Bot is started. Handlers must be registered before start. Ignoring.');
+        if(hasattr(self, "ircsock")):
+            print ("Bot is started. Handlers must be registered before start. Ignoring.");
             return;
 
-        if(not hasattr(handler, 'priority')):
+        if(not hasattr(handler, "priority")):
             handler.priority = 0;
 
         if(handler.priority != 0):
             for item in self.handlers:
                 if(item.priority == handler.priority):
-                    raise Exception('Handlers {0} and {1} have the same priority {2}.'.format(item.__name__, handler.__name__, item.priority))
+                    raise Exception("Handlers {0} and {1} have the same priority {2}.".format(item.__name__, handler.__name__, item.priority))
 
         self.handlers.append(handler)
 
     def _sendCommand(self, msg):
-        if(not hasattr(self, 'ircsock')):
-            print ('Bot was not yet started. Ignoring.');
+        if(not hasattr(self, "ircsock")):
+            print ("Bot was not yet started. Ignoring.");
             return;
-        msg = msg.strip().replace('\r', '').replace('\n', ' '); #newlines are forbiden
+        msg = msg.strip().replace("\r", "").replace("\n", " "); # Newlines are forbiden
 
-        ##print ('sending msg\n>{0}<'.format(msg))
-        self.ircsock.send((msg + "\n").encode(encoding='UTF-8'))
+        #print ('sending msg\n>{0}<'.format(msg))
+        self.ircsock.send((msg + "\n").encode(encoding="UTF-8"))
 
-    def _send(self, msg, target = ''): # This is the send message function, it simply sends messages to the channel.
+    def _send(self, msg, target = ""): # This is the send message function, it simply sends messages to the channel.
         if(target == ''):
             target = self.channel;
 
@@ -121,7 +119,7 @@ class BrainsOfBot:
                 self._sendCommand("PRIVMSG " + target + " :" + item)
 
     def _prepareHandlers(self):
-        self.handlers.sort(key=lambda handler: handler.priority, reverse=True) #sort by priority
+        self.handlers.sort(key=lambda handler: handler.priority, reverse=True) # Sort by priority
 
     def ping(self, msg): # Bot will respond to server pings
         self._sendCommand("PONG :" + msg.msg)
@@ -131,17 +129,17 @@ class BrainsOfBot:
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.ircsock.connect((self.server, self.port)) # Here we connect to the server
 
-        self._sendCommand("USER " + self.botnick + " " + self.botnick + " " + self.botnick + " :http://4chan.org/int/balt") # user authentication
+        self._sendCommand("USER " + self.botnick + " " + self.botnick + " " + self.botnick + " :http://4chan.org/int/balt") # User authentication
         self._sendCommand("NICK " + self.botnick) # Here we actually assign the nick to the bot
-        self._sendCommand("JOIN " + self.channel)# Joins the channel using the functions we previously defined
+        self._sendCommand("JOIN " + self.channel) # Joins the channel using the functions we previously defined
 
         self._prepareHandlers();
-        #start event loop
-        while 1: # Be careful with these! it might send you to an infinite loop
-            ircmsg = self.ircsock.recv(2048).decode(encoding='UTF-8') # receive data from the server
-            ircmsg = ircmsg.strip('\n\r') # removing any unnecessary linebreaks.
+        # Start event loop
+        while 1: # Be careful with these! It might send you into an infinite loop
+            ircmsg = self.ircsock.recv(2048).decode(encoding="UTF-8") # Receive data from the server
+            ircmsg = ircmsg.strip("\n\r") # Removing any unnecessary linebreaks
 
-            if(len(ircmsg) <= 0): #disconnected
+            if(len(ircmsg) <= 0): # Disconnected
                 break;
 
             if(self.debug):
@@ -150,7 +148,7 @@ class BrainsOfBot:
 
             msg = parseIRCLine(ircmsg)
 
-            if(msg.command == 'PING'): #ping is special. Brain can handle it by itself
+            if(msg.command == "PING"): # Ping is special. Brain can handle it by itself
                 self.ping(msg);
                 continue;
 
@@ -158,12 +156,12 @@ class BrainsOfBot:
 
             for handler in self.handlers:
                 if(handler.canHandle(msg)):
-                    print ('handler {0} can handle'.format(handler.__class__.__module__));
+                    print ("handler {0} can handle".format(handler.__class__.__module__));
                     handler.handle(msg, self.resp);
                     wasLastMsgHandled = True;
                     break;
                 else:
-                    print ('NOT {0}'.format(handler.__class__.__module__));
+                    print ("NOT {0}".format(handler.__class__.__module__));
 
             self.wasLastMsgHandled = wasLastMsgHandled;
 
