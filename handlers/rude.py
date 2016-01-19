@@ -36,8 +36,8 @@ class Handler:
                        "Get back in that bin, Finn!",
                        "Once I knew a friendly Finn\nhe lived inside a dingy bin",
                        "If I perchance was born a Finn\nI'd spend my days inside a bin",
-                       "Little Finn, don't run from the bin\nEvery Finn must go in the bin",]
-        ]      
+                       "Little Finn, don't run from the bin\nEvery Finn must go in the bin"]
+                
                 msg.text = psa[random.randint(0, len(psa) - 1)]
                 return True;
 
