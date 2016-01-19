@@ -33,10 +33,10 @@ class Handler:
 
 
     def canHandle(self, msg):
-        return msg.command == 'PRIVMSG' and not msg.isTargetRoom() and msg.msg == 'echo';
+        return msg.command == 'PRIVMSG' and not msg.isTargetRoom();
 
 
     def handle(self, msg, resp):
         responseText = msg.toString();
         print ('Sending response: ' + responseText);
-        resp.send(responseText, msg.re()); #send private message to sender user
+        resp.send(responseText + '\nxx', msg.re()); #send private message to sender user

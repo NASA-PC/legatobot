@@ -116,7 +116,9 @@ class BrainsOfBot:
         if(target == ''):
             target = self.channel;
 
-        self._sendCommand("PRIVMSG " + target + " :" + msg)
+        msg = msg.splitlines();
+        for item in msg:
+                self._sendCommand("PRIVMSG " + target + " :" + item)
 
     def _prepareHandlers(self):
         self.handlers.sort(key=lambda handler: handler.priority, reverse=True) #sort by priority
