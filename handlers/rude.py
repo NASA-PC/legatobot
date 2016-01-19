@@ -1,6 +1,8 @@
 '''
 Some silly and innocent bullyi... jokes. :)
 '''
+import random
+
 class Handler:
     priority = -1;
 
@@ -29,7 +31,14 @@ class Handler:
 
             # Finns if
             if(msg.contains("finn")):
-                msg.text = "Respect our environment, put a finn in the bin!";
+                psa = ["Respect our environment, put a finn in the bin!",
+                       "Have you put a Finn in the bin today?",
+                       "Get back in that bin, Finn!",
+                       "Once I knew a friendly Finn\nhe lived inside a dingy bin",
+                       "If I perchance was born a Finn\nI'd spend my days inside a bin",
+                       "Little Finn, don't run from the bin\nEvery Finn must go in the bin",]
+        ]      
+                msg.text = psa[random.randint(0, len(psa) - 1)]
                 return True;
 
             # Funny reply
