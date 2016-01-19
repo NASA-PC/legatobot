@@ -17,7 +17,7 @@ Python 2.7
 * ArnieBoi[SWE]
 * suukinni
 * Thorndrop
-* J3remy (http://ow.ly/X2Z89)
+* [J3remy](http://wiki.shellium.org/index.php?title=Writing_an_IRC_bot_in_Python&action=edit)
 * kawaii anonkun
 
 # Handlers
