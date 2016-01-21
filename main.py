@@ -82,7 +82,7 @@ class BrainsOfBot:
         self.channel = "#balt" # Channel
         self.botnick = "LegatoBot" # Your bot's nick
         self.handlers = []
-        self.debug = True
+        self.debug = False
         self.resp = Response(self);
         self.wasLastMsgHandled = False; # Not sure if anybody will ever need it. Can be used to check if user is responding to the bot
 
