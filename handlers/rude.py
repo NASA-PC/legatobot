@@ -25,7 +25,7 @@ class Handler:
                 return True;
 
             # Channel if
-            if(msg.contains("http://") and msg.contains("youtu")):
+            if(msg.contains("http") and msg.contains("youtu")):
                 msg.text = "only on my channel";
                 return True;
 
