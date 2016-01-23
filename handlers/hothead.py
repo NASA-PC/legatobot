@@ -51,8 +51,7 @@ class Handler:
 
             # Funny reply
             with open("curses_nou.txt") as curses:
-                msgWords = msg.text.split(" ")
-                print(msg.text)
+                msgWords = msg.msg.split(" ")
                 for curse in curses:
                     curse = curse.rstrip("\n")
                     if (curse in msgWords and msg.contains("you")):
