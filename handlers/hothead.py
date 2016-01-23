@@ -5,14 +5,6 @@ import random
 
 class Handler:
     priority = -1;
-    
-    # Array for funny naughty words
-    curses = ["homo", "dildo", "scrub", "penishole", "fag", "kike",
-              "madman", "refugee", "immigrant", "nigger", "shitskin",
-              "scrotum", "banaan", "equine vaginal cavity", "vagina",
-              "punk", "faggot", "furry", "error", "fig", "noob", "busta",
-              "dimwit", "bimbo", "dag", "dickhead", "dweeb", "nerd",
-              "limey", "brat", "psycho", "wanker", "amateur", "ape"]
 
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
@@ -24,11 +16,21 @@ class Handler:
 
         if(msg.command == "PRIVMSG"):
 
-            # Shut up function
+            # Shut up function including funny naughty arrays
             if(msg.contains("shut up") and msg.contains(self.brain.botnick)):
-                curse = self.curses[random.randint(0, len(self.curses) - 1)]
-                msg.text = "fuck off " + curse;
-                return True;
+                with open("curses_adj.txt") and open("curses_nou.txt") as f:
+                    curse_adj = [line.rstrip("\n") for line in open("curses_adj.txt")]
+                    curse_nou = [line.rstrip("\n") for line in open("curses_nou.txt")]
+                    msg.text = "fuck off you " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
+                    return True
+                
+            # Insults on demand
+            '''if(msg.contains("#insult") and msg.contains()):
+                with open("curses_adj.txt") and open("curses_nou.txt") as f:
+                    curse_adj = [line.rstrip("\n") for line in open("curses_adj.txt")]
+                    curse_nou = [line.rstrip("\n") for line in open("curses_nou.txt")]
+                    msg.text = "you're a " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
+                    return True'''
 
             # Channel function
             if(msg.contains("http") and msg.contains("youtu")):
@@ -48,15 +50,19 @@ class Handler:
                 return True;
 
             # Funny reply
-            for curse in self.curses:
-                if (msg.contains(curse) and msg.contains("you")):
-                    if msg.contains("fuck"): # If it has fuck, add some fucking
-                        msg.text = "yeah you fucking " + curse;
-                        return True;
-                    else:
-                        msg.text = "yeah you " + curse;
-                        return False;
-
+            with open("curses_nou.txt") as curses:
+                msgWords = msg.text.split(" ")
+                print(msg.text)
+                for curse in curses:
+                    curse = curse.rstrip("\n")
+                    if (curse in msgWords and msg.contains("you")):
+                        if (msg.contains("fuck")): # If it has fuck, add some fucking
+                            msg.text = "yeah you fucking " + curse;
+                            return True;
+                        else:
+                            msg.text = "yeah you " + curse;
+                            return True;
+                        
         return msg.command == "PRIVMSG";
 
     def handle(self, msg, resp):
