@@ -6,6 +6,10 @@ import random
 class Handler:
     priority = -1;
 
+    # Array for usernames
+    names = ["ArnieBoi[SWE]", "arnie[se]", "pasta", "mr_soup",
+         "MikeW", "zmpg", "NASA", "trikkyslikky", "LegatoBot"]
+
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
         self.lastNick = '';
@@ -25,12 +29,13 @@ class Handler:
                     return True
                 
             # Insults on demand
-            '''if(msg.contains("#insult") and msg.contains()):
-                with open("curses_adj.txt") and open("curses_nou.txt") as f:
-                    curse_adj = [line.rstrip("\n") for line in open("curses_adj.txt")]
-                    curse_nou = [line.rstrip("\n") for line in open("curses_nou.txt")]
-                    msg.text = "you're a " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
-                    return True'''
+            for name in self.names:
+                if(msg.contains("#insult") and msg.contains(name)):
+                    with open("curses_adj.txt") and open("curses_nou.txt") as f:
+                        curse_adj = [line.rstrip("\n") for line in open("curses_adj.txt")]
+                        curse_nou = [line.rstrip("\n") for line in open("curses_nou.txt")]
+                        msg.text = "Hey" + " " + name +  " you're a " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
+                        return True
 
             # Channel function
             if(msg.contains("http") and msg.contains("youtu")):
