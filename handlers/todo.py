@@ -11,5 +11,5 @@ class Handler:
     def handle(self, msg, resp):
         resp.send("Just do it, fam!", msg.re())
         # for line in urllib.urlopen("https://raw.githubusercontent.com/Thorndrop/legatobot/master/todo.txt"): # Alternative way
-        for line in open("\library\todo.txt"):
+        for line in open("library/todo.txt"):
             resp.send(line, msg.re())
