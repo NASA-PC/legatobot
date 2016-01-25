@@ -1,14 +1,15 @@
 '''
-Some silly and innocent bullyi... jokes & Warnings to nervous individuals.
+Some silly and innocent bullyi... jokes & warnings to nervous individuals.
 '''
 import random
 
 class Handler:
     priority = -1;
 
-    # Array for usernames
+    # Array for usernames, needs to be re-done to use /names, possibly imported to one of the main files
     names = ["ArnieBoi[SWE]", "arnie[se]", "pasta", "mr_soup",
-             "MikeW", "zmpg", "NASA", "trikkyslikky", "LegatoBot"]
+             "MikeW", "zmpg", "NASA", "trikkyslikky", "LegatoBot",
+             "anonkun[lt]"]
 
     def __init__(self, brain):
         self.brain = brain; # Brain  is useful if you want i.e the name of the bot
@@ -36,7 +37,7 @@ class Handler:
                   name = msgWords[insultIndex +1]
                   
                   if(name in self.names):
-                      with open("curses_adj.txt") and open("curses_nou.txt") as f:
+                      with open("\library\curses_adj.txt") and open("\library\curses_nou.txt") as f:
                           curse_adj = [line.rstrip("\n") for line in open("\library\curses_adj.txt")]
                           curse_nou = [line.rstrip("\n") for line in open("\library\curses_nou.txt")]
                           msg.text = "Hey" + " " + name +  " you're a " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
@@ -93,6 +94,9 @@ class Handler:
 
         if(self.spamCount == 10):
             resp.send("oh wow", msg.re());
+            
+        if(self.spamCount == 15):
+            resp.send("Sir, please stop this.", msg.re());
 
         if(self.spamCount == 20):
             resp.send("SHUT THE FUCK UP {0}".format(msg.user), msg.re());
