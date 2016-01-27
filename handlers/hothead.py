@@ -23,9 +23,9 @@ class Handler:
 
             # Shut up function including funny naughty arrays
             if(msg.contains("shut up") and msg.contains(self.brain.botnick)):
-                with open('library\curses_adj.txt') and open('library\curses_nou.txt') as f:
-                    curse_adj = [line.rstrip("\n") for line in open('library\curses_adj.txt')]
-                    curse_nou = [line.rstrip("\n") for line in open('library\curses_nou.txt')]
+                with open("library\curses_adj.txt') and open('library\curses_nou.txt") as f:
+                    curse_adj = [line.rstrip("\n") for line in open("library\curses_adj.txt")]
+                    curse_nou = [line.rstrip("\n") for line in open("library\curses_nou.txt")]
                     msg.text = "fuck off you " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
                     return True
                 
@@ -37,15 +37,15 @@ class Handler:
                   name = msgWords[insultIndex +1]
                   
                   if(name in self.names):
-                      with open('library\curses_adj.txt') and open('library\curses_nou.txt') as f:
-                          curse_adj = [line.rstrip("\n") for line in open('library\curses_adj.txt')]
-                          curse_nou = [line.rstrip("\n") for line in open('library\curses_nou.txt')]
+                      with open("library\curses_adj.txt") and open("library\curses_nou.txt") as f:
+                          curse_adj = [line.rstrip("\n") for line in open("library\curses_adj.txt")]
+                          curse_nou = [line.rstrip("\n") for line in open("library\curses_nou.txt")]
                           msg.text = "Hey" + " " + name +  " you're a " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
                           return True
 
-              with open('library\curses_adj.txt') and open('library\curses_nou.txt') as f:
-                  curse_adj = [line.rstrip("\n") for line in open('library\curses_adj.txt')]
-                  curse_nou = [line.rstrip("\n") for line in open('library\curses_nou.txt')]
+              with open("library\curses_adj.txt") and open("library\curses_nou.txt") as f:
+                  curse_adj = [line.rstrip("\n") for line in open("library\curses_adj.txt")]
+                  curse_nou = [line.rstrip("\n") for line in open("library\curses_nou.txt")]
                   msg.text = curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
                   return True
                       
@@ -67,7 +67,7 @@ class Handler:
                 return True;
 
             # Funny reply
-            with open('library\curses_nou.txt') as curses:
+            with open("library\curses_nou.txt") as curses:
                 msgWords = msg.msg.split(" ")
                 for curse in curses:
                     curse = curse.rstrip("\n")
