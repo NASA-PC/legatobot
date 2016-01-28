@@ -3,7 +3,7 @@
 from bs4 import BeautifulSoup
 import urllib2
 
-def wiki(resp, components): # #wiki <search term>
+def wiki(components): # #wiki <search term>
     # Returns a wiki link and the first paragraph of the page
 
     main_page = "https://en.wikipedia.org/wiki/Main_Page"
@@ -53,14 +53,6 @@ class Handler:
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
 
-    def canHandle(self, msg):
-        return msg.command == "PRIVMSG" and msg.msg == "#wiki" or msg.msg == "#wiki ");
+    def canHandle():
 
-    def handle(self, msg, resp):
-        if(msg.msg == "#wiki"):
-            wiki(resp, msg.user);
-            return;
-
-        if(msg.msg == "#wiki "):
-            wiki(resp, msg.user);
-            return;
+    def handle():
