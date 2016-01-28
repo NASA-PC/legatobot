@@ -108,7 +108,7 @@ class BrainsOfBot:
         msg = msg.strip().replace("\r", "").replace("\n", " "); # Newlines are forbiden
 
         #print ('sending msg\n>{0}<'.format(msg))
-        self.ircsock.send((msg + "\n").encode(encoding="UTF-8"))
+        self.ircsock.send((msg + "\n").encode(encoding="utf-8"))
 
     def _send(self, msg, target = ""): # This is the send message function, it simply sends messages to the channel.
         if(target == ''):
@@ -136,7 +136,7 @@ class BrainsOfBot:
         self._prepareHandlers();
         # Start event loop
         while 1: # Be careful with these! It might send you into an infinite loop
-            ircmsg = self.ircsock.recv(2048).decode(encoding="UTF-8") # Receive data from the server
+            ircmsg = self.ircsock.recv(2048).decode(encoding="utf-8") # Receive data from the server
             ircmsg = ircmsg.strip("\n\r") # Removing any unnecessary linebreaks
 
             if(len(ircmsg) <= 0): # Disconnected
