@@ -1,2 +1,4 @@
 __pycache__
 *.pyc
+library/fnames_first.txt
+library/names_last.txt

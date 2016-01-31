@@ -45,7 +45,7 @@ def wiki(components): # #wiki <search term>
             pos = msg.rfind(".")
             msg = msg[:pos]
 
-    return msg '''
+    return msg'''
 
 class Handler:
     priority = 10000; ''' It is used to determine which handler should be checked canHandle() first.

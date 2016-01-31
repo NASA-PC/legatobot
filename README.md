@@ -11,6 +11,7 @@ Simple IRC bot for D&D and some various minor things.
 # Dependencies
 
 Python 2.7
+BeautifulSoup (weather.py)
 
 # Credits
 
@@ -19,6 +20,7 @@ Python 2.7
 * Thorndrop
 * [J3remy](http://wiki.shellium.org/index.php?title=Writing_an_IRC_bot_in_Python&action=edit)
 * kawaii anonkun
+* [paulbarbu](https://github.com/paulbarbu/IRC-Bot/)
 
 # Handlers
 If you want to create a new handler, check out handlers/example.py
