@@ -1,4 +1,7 @@
 # -*- coding: UTF-8 -*-
+'''
+Searches from WIkipedia
+'''
 
 from bs4 import BeautifulSoup
 import urllib2
