@@ -31,7 +31,7 @@ class Handler:
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
 
     def canHandle(self, msg):
-        return msg.command == 'PRIVMSG' and not msg.isTargetRoom();
+        return msg.command == 'PRIVMSG' and not msg.isTargetRoom() and msg.user != 'OperServ';
 
     def handle(self, msg, resp):
         responseText = msg.toString();
