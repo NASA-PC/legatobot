@@ -2,7 +2,6 @@ todo.py - a handler to interface with todo.txt
 Keep sorting the same on +stats @arnie
 Add +stats to a file
 Weather check
-Wikipedia search
+Uptime check
 Welcome/help message when bot enters the channel
-Add name generators etc
 [A] Remake usernames array to read /names and put it in to main.py

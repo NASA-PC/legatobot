@@ -143,7 +143,7 @@ class BrainsOfBot:
         msg = msg.strip().replace("\r", "").replace("\n", " "); # Newlines are forbiden
 
         self.legatoLock.acquire(True); #lock thread so, that only one command could be sent at the time
-        self.ircsock.send((msg + "\n").encode(encoding="UTF-8"))
+        self.ircsock.send((msg + "\n").encode(encoding="utf-8"))
         self.legatoLock.release();
 
     def _send(self, msg, target = ""): # This is the send message function, it simply sends messages to the channel.
@@ -182,7 +182,7 @@ class BrainsOfBot:
         self._prepareHandlers();
         # Start event loop
         while 1: # Be careful with these! It might send you into an infinite loop
-            ircmsg = self.ircsock.recv(2048).decode(encoding="UTF-8") # Receive data from the server
+            ircmsg = self.ircsock.recv(2048).decode(encoding="utf-8") # Receive data from the server
             ircmsg = ircmsg.strip("\n\r") # Removing any unnecessary linebreaks
 
             if(len(ircmsg) <= 0): # Disconnected

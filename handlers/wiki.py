@@ -1,4 +1,7 @@
 # -*- coding: UTF-8 -*-
+'''
+Searches from WIkipedia
+'''
 
 from bs4 import BeautifulSoup
 import urllib2
@@ -8,7 +11,7 @@ def wiki(components): # #wiki <search term>
 
     main_page = "https://en.wikipedia.org/wiki/Main_Page"
 
-    wlink = components["arguments"].split("#wiki ") # notice the trailing space
+    wlink = components.split("#wiki ") # notice the trailing space
     if 1 == len(wlink): # no search term given, the Main_Page is "displayed"
         response = main_page
     else:
@@ -19,11 +22,13 @@ def wiki(components): # #wiki <search term>
         else:
             response = "https://en.wikipedia.org/wiki/" + search_term
 
-    response = response + "\r\n" + get_paragraph(response)
+    response = response + "\r\n" #+ get_paragraph(response)
 
-    return response.encode("utf8")
+    return response.encode("utf-8")
 
-def get_paragraph(resp, wlink):
+    print(wiki)
+
+'''def get_paragraph(response, wlink):
     # Gets the first paragraph from a wiki link
 
     msg = ""
@@ -43,16 +48,19 @@ def get_paragraph(resp, wlink):
             pos = msg.rfind(".")
             msg = msg[:pos]
 
-    return msg
+    return msg'''
 
 class Handler:
-    priority = 12; ''' It is used to determine which handler should be checked canHandle() first.
+    priority = 10000; ''' It is used to determine which handler should be checked canHandle() first.
     Two handlers must not have the same priority (unless priority is 0)
     If priority is not defined, it is considered to be 0. '''
 
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
 
-    def canHandle():
+    def canHandle(self, msg):
+        return msg.command == "PRIVMSG" and msg.msg.startswith("#wiki")
 
-    def handle():
+    def handle(self, msg, resp):
+        responseText = wiki(msg.msg)
+        resp.send(responseText, msg.re());

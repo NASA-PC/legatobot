@@ -10,6 +10,7 @@ Simple IRC bot for D&D and some various minor things.
 # Dependencies
 
 Python 2.7 or Python 3.0
+BeautifulSoup (weather.py)
 
 # Development
 You probably only need to write handlers or pumis.
@@ -49,4 +50,5 @@ in need you can execute p.talk(pumiTest.r) multiple times.
 * Thorndrop
 * [J3remy](http://wiki.shellium.org/index.php?title=Writing_an_IRC_bot_in_Python&action=edit)
 * kawaii anonkun
+* [paulbarbu](https://github.com/paulbarbu/IRC-Bot/)
 
