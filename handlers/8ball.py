@@ -1,6 +1,6 @@
 '''
 https://en.wikipedia.org/wiki/Magic_8-Ball
-''''
+'''
 
 import random
 
@@ -17,7 +17,7 @@ def mball(components):
         
     response = ""
 
-    if components["arguments"] == "#8ball":
+    if components.split("#ball"):
         # the user sent just the command, no garbage
         random.shuffle(answers)
         response = "Magic Ball says: " + random.choice(answers)
