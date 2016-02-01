@@ -2,6 +2,8 @@ if __name__ == "__main__":
     print ("You are running the wrong file! You should run LegatoBot.py!")
 
 import socket
+import threading
+import time
 
 class ParsedLine:
 
@@ -14,6 +16,9 @@ class ParsedLine:
 
     def contains(self, txt):
         return self.msg.lower().find(txt.lower()) != -1;
+
+    def startswith(self, txt):
+        return self.msg.lower().startswith(txt.lower());
 
     def isTargetRoom(self):
         return self.target.startswith("#");
@@ -33,10 +38,30 @@ class ParsedLine:
         result += '}';
         return result;
 
+
+
+
 class Response:
     def __init__(self, brain):
         self.send = brain._send;
         self.sendCommand = brain._sendCommand;
+
+
+
+class PumiWrapper:
+    def __init__(self, pumi, resp):
+        self.pumi = pumi;
+        self.resp = resp;
+
+    def start (self):
+        threading.Timer(self.pumi.interval, self.execute).start();
+
+    def execute(self):
+        self.pumi.talk(self.resp)
+
+        if(not self.pumi.isLithoku()):
+            self.start();
+
 '''
 Examples:
 :anonnkun[lt]!~bzz@sdedxu-268-70-64-59.inturbo.lt PRIVMSG LegatoBot2 :asdf
@@ -82,8 +107,11 @@ class BrainsOfBot:
         self.channel = "#balt" # Channel
         self.botnick = "LegatoBot" # Your bot's nick
         self.handlers = []
+        self.pumis = []
+        self.isPumisAlreadyInitialized = False;
         self.debug = False
         self.resp = Response(self);
+        self.legatoLock = threading.Lock();
         self.wasLastMsgHandled = False; # Not sure if anybody will ever need it. Can be used to check if user is responding to the bot
 
     def registerHandler(self, handler):
@@ -101,14 +129,22 @@ class BrainsOfBot:
 
         self.handlers.append(handler)
 
+    def registerPumi(self, pumi):
+        if(hasattr(self, "ircsock")):
+            print ("Bot is started. Pumis must be registered before start. Ignoring.");
+            return;
+
+        self.pumis.append(PumiWrapper(pumi, self.resp));
+
     def _sendCommand(self, msg):
         if(not hasattr(self, "ircsock")):
             print ("Bot was not yet started. Ignoring.");
             return;
         msg = msg.strip().replace("\r", "").replace("\n", " "); # Newlines are forbiden
 
-        #print ('sending msg\n>{0}<'.format(msg))
+        self.legatoLock.acquire(True); #lock thread so, that only one command could be sent at the time
         self.ircsock.send((msg + "\n").encode(encoding="UTF-8"))
+        self.legatoLock.release();
 
     def _send(self, msg, target = ""): # This is the send message function, it simply sends messages to the channel.
         if(target == ''):
@@ -123,6 +159,16 @@ class BrainsOfBot:
 
     def ping(self, msg): # Bot will respond to server pings
         self._sendCommand("PONG :" + msg.msg)
+
+    def tryInitializePumis(self):
+        if(self.isPumisAlreadyInitialized): #only execute once
+            return;
+
+        time.sleep(3);
+        for pumi in self.pumis:
+            pumi.start();
+
+        self.isPumisAlreadyInitialized = True;
 
     def start(self):
         self.isStarted = True;
@@ -142,27 +188,39 @@ class BrainsOfBot:
             if(len(ircmsg) <= 0): # Disconnected
                 break;
 
-            if(self.debug):
-                # Here we print what's coming from the server
-                print(ircmsg)
+            lines = ircmsg.splitlines();
+            for line in lines:
 
-            msg = parseIRCLine(ircmsg)
+                line = line.strip();
+                if not line:
+                    continue; #skip empty lines
 
-            if(msg.command == "PING"): # Ping is special. Brain can handle it by itself
-                self.ping(msg);
-                continue;
+                if(self.debug):
+                    # Here we print what's coming from the server
+                    print(line)
 
-            wasLastMsgHandled = False;
+                msg = parseIRCLine(line)
 
-            for handler in self.handlers:
-                if(handler.canHandle(msg)):
-                    print ("handler {0} can handle".format(handler.__class__.__module__));
-                    handler.handle(msg, self.resp);
-                    wasLastMsgHandled = True;
-                    break;
-                else:
-                    print ("NOT {0}".format(handler.__class__.__module__));
+                if(msg.command == "PING"): # Ping is special. Brain can handle it by itself
+                    self.ping(msg);
+                    continue;
 
-            self.wasLastMsgHandled = wasLastMsgHandled;
+                if(msg.command == "NOTICE" and msg.startswith("Welcome to IRCWorld, ")):
+                    self.tryInitializePumis();
+                    continue;
+
+                wasLastMsgHandled = False;
+
+                for handler in self.handlers:
+                    if(handler.canHandle(msg)):
+                        if(self.debug):
+                            print ("handler {0} can handle".format(handler.__class__.__module__));
+                        handler.handle(msg, self.resp);
+                        wasLastMsgHandled = True;
+                        break;
+                    elif(self.debug):
+                        print ("NOT {0}".format(handler.__class__.__module__));
+
+                self.wasLastMsgHandled = wasLastMsgHandled;
 
         print ("TIME TO DIE")
