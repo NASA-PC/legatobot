@@ -64,7 +64,7 @@ class Handler:
                 return True;
 
             # Funny reply
-            with open("library\curses_nou.txt") as curses:
+            with open("library/curses_nou.txt") as curses:
                 msgWords = msg.msg.split(" ")
                 for curse in curses:
                     curse = curse.rstrip("\n")
