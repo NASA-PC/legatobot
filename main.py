@@ -54,7 +54,11 @@ class PumiWrapper:
         self.resp = resp;
 
     def start (self):
-        threading.Timer(self.pumi.interval, self.execute).start();
+        self.timer = threading.Timer(self.pumi.interval, self.execute);
+        self.timer.start();
+
+    def cancel(self):
+        self.timer.cancel();
 
     def execute(self):
         self.pumi.talk(self.resp)
@@ -169,6 +173,10 @@ class BrainsOfBot:
             pumi.start();
 
         self.isPumisAlreadyInitialized = True;
+        
+    def cleanupPumis(self):
+        for pumi in self.pumis:
+            pumi.cancel();
 
     def start(self):
         self.isStarted = True;
@@ -222,5 +230,6 @@ class BrainsOfBot:
                         print ("NOT {0}".format(handler.__class__.__module__));
 
                 self.wasLastMsgHandled = wasLastMsgHandled;
-
+        
+        self.cleanupPumis();
         print ("TIME TO DIE")
