@@ -46,11 +46,6 @@ class Handler:
                   msg.text = curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
                   return True
                       
-            # Channel function
-            if(msg.contains("http") and msg.contains("youtu")):
-                msg.text = "only on my channel";
-                return True;
-
             # PSA function
             if(msg.contains("finn")):
                 psa = ["Respect our environment, put a finn in the bin!",
