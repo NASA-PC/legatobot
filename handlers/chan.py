@@ -7,11 +7,14 @@ class Handler:
 
     def canHandle(self, msg):
         if (msg.command == "PRIVMSG"):
-            if(msg.msg == "#4chan" or msg.msg == "4chan"):
+            if(msg.msg == "#4chan"):
                 msg.text = "Here you go, fam: https://www.4chan.org/int/balt";
                 return True;
-            if(msg.msg == "#8chan" or msg.msg == "8ch"):
+            if(msg.msg == "#8chan"):
                 msg.text = "Here you go, fam: https://8ch.net/balt";
+                return True;
+            if(msg.msg == "#shitpost"):
+                msg.text = "Here you go, fam: http://zmpng.duckdns.org/balt.html";
                 return True;
         return False;
 

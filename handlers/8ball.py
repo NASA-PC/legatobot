@@ -4,8 +4,7 @@ https://en.wikipedia.org/wiki/Magic_8-Ball
 
 import random
 
-def mball(components):
-    '''Return a random entry from the shuffled list'''
+def mball(components): # Return a random entry from the shuffled list
 
     answers = ["It is certain.", "It is decidedly so.", "Without a doubt.", \
         "Yes - definitely.", "You may rely on it.", "As I see it, yes.",\
@@ -20,7 +19,7 @@ def mball(components):
     if components.split("#ball"):
         # the user sent just the command, no garbage
         random.shuffle(answers)
-        response = "My magic ball says: " + random.choice(answers)
+        response = random.choice(answers)
 
     return response
     

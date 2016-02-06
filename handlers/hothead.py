@@ -9,7 +9,7 @@ class Handler:
     # Array for usernames, needs to be re-done to use /names, possibly imported to one of the main files
     names = ["ArnieBoi[SWE]", "arnie[se]", "pasta", "mr_soup",
              "MikeW", "zmpg", "NASA", "trikkyslikky", "LegatoBot",
-             "anonkun[lt]"]
+             "anonkun[lt]", "bigSilk", "Morticia"]
 
     def __init__(self, brain):
         self.brain = brain; # Brain  is useful if you want i.e the name of the bot

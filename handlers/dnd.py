@@ -1,5 +1,5 @@
 '''
-Quirky adventure game for us nerds, amirite? ;).
+Quirky adventure game for us nerds, amirite? ;)
 '''
 import re
 import math

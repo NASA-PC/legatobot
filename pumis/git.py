@@ -10,7 +10,6 @@ else:
     def getUrlData(url):
         return requests.get(url = url).text;
 
-
 '''
 ---
 Example pumi.
@@ -50,8 +49,12 @@ class Pumi:
                 if (commit['sha'] == self.mySha):
                     break;
                 behind += 1;
-            if(behind > 0):
-                resp.send("I am out of date, there are {0} new commits in the github repository".format(behind))
+            if(behind == 0):
+                resp.send("I am up to date, yay!")
+            if(behind == 1):
+                resp.send("I am out of date, there is a new commit in the github repository.")
+            if(behind >= 2):
+                resp.send("I am out of date, there are {0} new commits in the github repository.".format(behind))
 
         if(not self.latestSha):
             self.latestSha = data[0]['sha'];

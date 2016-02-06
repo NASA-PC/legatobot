@@ -3,5 +3,4 @@ Keep sorting the same on +stats @arnie
 Add +stats to a file
 Weather check
 Uptime check
-Welcome/help message when bot enters the channel
 [A] Remake usernames array to read /names and put it in to main.py

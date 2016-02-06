@@ -144,10 +144,9 @@ flake
 flash harry
 freak
 frog
-fuck
-fuck face
-fuck head
-fuck noggin
+fuckface
+fuckhead
+fucknoggin
 fuckass
 fuckboi
 fuckboy
@@ -167,7 +166,7 @@ gringo
 grouch
 grumpy
 guido
-hell dog
+helldog
 hick
 hillbilly
 hippie

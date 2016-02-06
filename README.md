@@ -4,7 +4,7 @@ Simple IRC bot for D&D and some various minor things.
 
 # How to use
 
-1. Configure the connection details etc. @ main.py according to your needs
+1. Configure the connection details etc. from main.py & git.py according to your needs
 2. Run the LegatoBot.py
 
 # Dependencies
