@@ -9,7 +9,7 @@ Simple IRC bot for D&D and some various minor things.
 
 # Dependencies
 
-* Python 2.7 
+* Python 2.7/3.5.1
 * BeautifulSoup (for weather.py)
 
 # Development
@@ -31,8 +31,8 @@ Pumis are regularly executed tasks, executing each `interval` seconds until the 
 `talk(self, resp)` is the only important function where all the handling should be implemented. A pumi is free to change it's interval or lithoku anytime it wishes, just be careful ***not*** to spam the server every second with your boring bloging!  
 Please check out pumis/example.py for a fast dying pumi example. 
 
-NOTE: `talk(`) is executed before `isLithoku()`, therefore each Pumi has a chance to say at least something before death.  
-NOTE 2: `talk()` for the first time is called only after `interval` of seconds, so that pumis wouldn't spam the tread.
+`talk()` is executed before `isLithoku()`, therefore each Pumi has a chance to say at least something before death.  
+`talk()` for the first time is called only after `interval` of seconds, so that pumis wouldn't spam the tread.
 
 ### Testing Pumis
 
