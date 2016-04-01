@@ -2,9 +2,11 @@
 '''
 Searches from Google
 '''
-
-#from bs4 import BeautifulSoup
-#import urllib2
+import json
+import urllib
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 def google(components): # #wiki <search term>
     # Returns a wiki link and the first paragraph of the page
@@ -15,40 +17,31 @@ def google(components): # #wiki <search term>
     if 1 == len(wlink): # no search term given, the Main_Page is "displayed"
         response = main_page
     else:
-        search_term = wlink[1].lstrip().replace(" ", "_")
+        search_term = wlink[1].lstrip()
+        search_term = urllib.quote_plus(search_term)
 
         if len(search_term) < 1:
             response = main_page
         else:
             response = "https://www.google.com/#q=" + search_term
 
-    response = response + "\r\n" #+ get_paragraph(response)
+    response = response + "\r\n" #+ get_link(response)
 
     return response.encode("utf-8")
 
-   # print(google)
+'''def google(searchfor, components):
+  query = urllib.urlencode({"q": searchfor})
+  url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s" % query
+  search_response = urllib.urlopen(url)
+  search_results = search_response.read()
+  results = json.loads(search_results)
+  data = results["responseData"]
+  hits = data["results"]
+  print "Top %d hits:" % len(hits)
+  for h in hits: printh["url"]
+  print "For more results, see %s" % data["cursor"]["moreResultsUrl"]
 
-'''def get_paragraph(response, wlink):
-    # Gets the first paragraph from a wiki link
-
-    msg = ""
-    try:
-        page_request = urllib2.Request(wlink)
-        page_request.add_header("User-agent", "Mozilla/5.0")
-        page = urllib2.urlopen(page_request)
-    except IOError:
-        msg = "Cannot acces link!"
-    else:
-
-        soup = BeautifulSoup(page)
-        msg = "".join(soup.find("div", { "id" : "bodyContent"}).p.findAll(text=True))
-
-        while 460 < len(msg): # the paragraph cannot be longer than 510
-            # characters including the protocol command
-            pos = msg.rfind(".")
-            msg = msg[:pos]
-
-    return msg'''
+showsome('ermanno olmi')'''
 
 class Handler:
     priority = 10500; ''' It is used to determine which handler should be checked canHandle() first.
