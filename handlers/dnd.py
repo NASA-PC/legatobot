@@ -37,13 +37,14 @@ def rollStats(resp, usernick): # Stat rolling function
 
         return modValue
 
+    stats = ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
+    
     if usernick in userStats:
         resp.send(usernick + " rolled:")
-        for stat in userStats[usernick]:
+        for stat in stats:
             resp.send(stat + ": " + str(userStats[usernick].get(stat)) + " (" +modPipe(userStats[usernick].get(stat)) + ")")
         return
 
-    stats = ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
     statObj = {}
 
     resp.send(usernick + " rolled:")

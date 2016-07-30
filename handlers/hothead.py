@@ -7,7 +7,7 @@ class Handler:
     priority = -1;
 
     # Array for usernames, needs to be re-done to use /names, possibly imported to one of the main files
-    names = ["ArnieBoi[SWE]", "arnie[se]", "pasta", "mr_soup",
+    names = ["ArnieBoi[SWE]", "arnie[se]", "pasta", "danklord_9000",
              "MikeW", "zmpg", "NASA", "trikkyslikky", "LegatoBot",
              "anonkun[lt]", "bigSilk", "Morticia"]
 
@@ -38,7 +38,7 @@ class Handler:
                   if(name in self.names):
                       curse_adj = [line.rstrip("\n") for line in open("library/curses_adj.txt")]
                       curse_nou = [line.rstrip("\n") for line in open("library/curses_nou.txt")]
-                      msg.text = "Hey" + " " + name +  " you're a " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
+                      msg.text = "Hey" + " " + name +  ", you're a " + curse_adj[random.randint(0, len(curse_adj) -1)] + " " + curse_nou[random.randint(0, len(curse_nou) -1)];
                       return True
               else:
                   curse_adj = [line.rstrip("\n") for line in open("library/curses_adj.txt")]
