@@ -165,7 +165,7 @@ class BrainsOfBot:
         self._sendCommand("PONG :" + msg.msg)
 
     def tryInitializePumis(self):
-        if(self.isPumisAlreadyInitialized): #only execute once
+        if(self.isPumisAlreadyInitialized): # Only execute once
             return;
 
         time.sleep(3);
@@ -201,7 +201,7 @@ class BrainsOfBot:
 
                 line = line.strip();
                 if not line:
-                    continue; #skip empty lines
+                    continue; # Skip empty lines
 
                 if(self.debug):
                     # Here we print what's coming from the server

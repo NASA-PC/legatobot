@@ -4,3 +4,5 @@ Add +stats to a file
 Weather check
 Uptime check
 [A] Remake usernames array to read /names and put it in to main.py
+Storing the generated name + function to recall it l8r
+Storing generated stuff into a seperate file.

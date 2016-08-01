@@ -86,7 +86,7 @@ class Handler:
 
         if(self.spamCount == 10):
             resp.send("oh wow", msg.re());
-            
+
         if(self.spamCount == 15):
             resp.send("Sir, please stop this.", msg.re());
 

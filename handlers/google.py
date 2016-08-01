@@ -8,8 +8,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-def google(components): # #wiki <search term>
-    # Returns a wiki link and the first paragraph of the page
+def google(components): # #google <search term>
 
     main_page = "https://www.google.com/#q="
 
@@ -25,23 +24,9 @@ def google(components): # #wiki <search term>
         else:
             response = "https://www.google.com/#q=" + search_term
 
-    response = response + "\r\n" #+ get_link(response)
+    response = response + "\r\n"
 
     return response.encode("utf-8")
-
-'''def google(searchfor, components):
-  query = urllib.urlencode({"q": searchfor})
-  url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s" % query
-  search_response = urllib.urlopen(url)
-  search_results = search_response.read()
-  results = json.loads(search_results)
-  data = results["responseData"]
-  hits = data["results"]
-  print "Top %d hits:" % len(hits)
-  for h in hits: printh["url"]
-  print "For more results, see %s" % data["cursor"]["moreResultsUrl"]
-
-showsome('ermanno olmi')'''
 
 class Handler:
     priority = 10500; ''' It is used to determine which handler should be checked canHandle() first.

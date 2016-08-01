@@ -13,7 +13,7 @@ def genMaleNames():
 def genFemaleNames():
         female_name = [line.rstrip("\n") for line in open("library/female_names.txt")]
         surname = [line.rstrip("\n") for line in open("library/surnames.txt")]
-        text = female_name[random.randint(0, len(female_name) -1)] + " " + surname[random.randint(0, len(surname) -1)]
+        text = "Generated name: " + female_name[random.randint(0, len(female_name) -1)] + " " + surname[random.randint(0, len(surname) -1)]
         return text.encode("utf-8")
 
 class Handler:

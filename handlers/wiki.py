@@ -3,8 +3,8 @@
 Searches from WIkipedia
 '''
 
-#from bs4 import BeautifulSoup
-#import urllib2
+from bs4 import BeautifulSoup
+import urllib2
 
 def wiki(components): # #wiki <search term>
     # Returns a wiki link and the first paragraph of the page
