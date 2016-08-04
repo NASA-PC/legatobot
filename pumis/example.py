@@ -20,4 +20,4 @@ class Pumi:
         return True; #Die as soon as possible
 
     def talk(self, resp): #Do all the bloging
-        resp.send("Hello everynian :3"); # Send hello world message
+        resp.send("Hello everyone! :3"); # Send hello world message

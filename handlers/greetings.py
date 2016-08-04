@@ -32,7 +32,7 @@ class Handler:
 
     def handle(self, msg, resp):
         if(msg.isAnonkun):
-            resp.send("hello {0} :3".format(msg.user), msg.re());
+            resp.send("hello {0}! :3".format(msg.user), msg.re());
             return;
 
         if(msg.type == "bye"):

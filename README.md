@@ -10,7 +10,6 @@ Simple IRC bot for D&D and some various minor things.
 # Dependencies
 
 * Python 2.7/3.5.1
-* BeautifulSoup (for weather.py)
 
 # Development
 

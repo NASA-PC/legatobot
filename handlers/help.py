@@ -39,7 +39,7 @@ class Handler:
                         return True;
 
                 else:
-                    msg.text = "Commands: d, stats, clearstats, 4chan, 8chan, todo, name, insult, shitpost\nUse #help x to learn more about these commands.\n"
+                    msg.text = "Commands: d, stats, clearstats, 4chan, 8chan, todo, name, insult, shitpost\nUse #help <command> to learn more.\n"
                     return True;
                 
     def handle(self, msg, resp):

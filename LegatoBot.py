@@ -15,7 +15,6 @@ for file in modules:
         else:
             print ("Handler '{0}' does not have class Handler in it. Ignored.".format(file));
 
-
 modules = os.listdir("pumis");
 modules.sort();
 for file in modules:
@@ -27,6 +26,5 @@ for file in modules:
             print ("Pumi module '{0}' registered".format(file));
         else:
             print ("Pumi '{0}' does not have class Pumi in it. Ignored.".format(file));
-
 
 brain.start();
