@@ -3,30 +3,60 @@
 Searches from Google
 '''
 import json
-import urllib
 import sys
-reload(sys)
-sys.setdefaultencoding("utf-8")
+
+
+if sys.version_info < (3, 0):
+    import urllib
+    import urllib2
+    
+    def quote(url):
+        return urllib.quote_plus(url.encode("utf-8"));
+    
+    def getUrlData(url):
+        return urllib2.urlopen(url).read();
+else:
+    import urllib.parse
+    import requests
+    def quote(url):
+        return urllib.parse.quote_plus(url.encode("utf-8"));
+
+    def getUrlData(url):
+        return requests.get(url = url).text;
+
+
+#What this is for?
+#import sys
+#reload(sys)
+#sys.setdefaultencoding("utf-8")
+
+def getSearchTerm(components):
+    return  components[len("#google"):].strip();
 
 def google(components): # #google <search term>
 
-    main_page = "https://www.google.com/#q="
+    response = "https://www.google.com/#q=" # if no search term given, the Main_Page is "displayed"
+    query =  getSearchTerm(components);
+    if len(query) > 0: 
+        response += quote(query)
 
-    wlink = components.split("#google ") # notice the trailing space
-    if 1 == len(wlink): # no search term given, the Main_Page is "displayed"
-        response = main_page
-    else:
-        search_term = wlink[1].lstrip()
-        search_term = urllib.quote_plus(search_term)
+    return response
 
-        if len(search_term) < 1:
-            response = main_page
-        else:
-            response = "https://www.google.com/#q=" + search_term
+def getOneItem(data, index):
+    return str(index) + ". " + data["items"][index]["title"] +" " + data["items"][index]["link"];
 
-    response = response + "\r\n"
-
-    return response.encode("utf-8")
+def googleResults(msg, resp):
+    query =  getSearchTerm(msg.msg);
+    if len(query) > 0:
+        url = "https://www.googleapis.com/customsearch/v1?cx=005983647730461686104:qfayqkczxfg&key=AIzaSyCy6tveUHlfNQDUtH0TJrF6PtU0h894S2I&q=" + query
+        data = json.loads(getUrlData(url));
+        if data and "items" in data and len(data["items"]) > 3:
+            for i in range(0, 3):
+                text = getOneItem(data, i);
+                if len(text) > 2:
+                    resp.send(text, msg.re());
+        
+    pass
 
 class Handler:
     priority = 10500; ''' It is used to determine which handler should be checked canHandle() first.
@@ -42,3 +72,4 @@ class Handler:
     def handle(self, msg, resp):
         responseText = google(msg.msg)
         resp.send(responseText, msg.re());
+        googleResults(msg, resp);
