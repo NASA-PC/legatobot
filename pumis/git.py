@@ -29,7 +29,7 @@ class Pumi:
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
         self.checkUpdate = True;
 
-        with open('.git/ORIG_HEAD', 'r') as file:
+        with open('.git/refs/remotes/origin/master', 'r') as file:
             self.mySha = file.read().strip();
 
         self.latestSha = '';
