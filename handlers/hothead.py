@@ -30,8 +30,9 @@ class Handler:
                 
             # Insults on demand
             if msg.contains("#insult"):
-              msgWords = msg.msg.split(" ")
-              insultIndex = msgWords.index("#insult")
+              msgWords = msg.msg.split(" ");
+              searchListForRetardedPython = [item.lower() for item in msgWords];
+              insultIndex = searchListForRetardedPython.index("#insult")
               if len(msgWords) >= insultIndex +2:
                   name = msgWords[insultIndex +1]
             
