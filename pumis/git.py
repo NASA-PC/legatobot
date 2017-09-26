@@ -29,6 +29,7 @@ class Pumi:
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
         self.checkUpdate = True;
         self.isLithoku = False;
+        self.mySha = '';
 
         try:
             with open('.git/refs/remotes/origin/master', 'r') as file:
