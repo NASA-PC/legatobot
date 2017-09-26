@@ -28,14 +28,18 @@ class Pumi:
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
         self.checkUpdate = True;
+        self.isLithoku = False;
 
-        with open('.git/refs/remotes/origin/master', 'r') as file:
-            self.mySha = file.read().strip();
+        try:
+            with open('.git/refs/remotes/origin/master', 'r') as file:
+                self.mySha = file.read().strip();
+        except:
+            self.isLithoku = True;
 
         self.latestSha = '';
 
     def isLithoku(self):
-        return False; #Never die
+        return self.isLithoku;
 
     def talk(self, resp):
         self.interval = 5 * 60;

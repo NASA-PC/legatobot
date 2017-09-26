@@ -58,7 +58,8 @@ class PumiWrapper:
         self.timer.start();
 
     def cancel(self):
-        self.timer.cancel();
+        if hasattr(self, 'timer'):
+            self.timer.cancel();
 
     def execute(self):
         self.pumi.talk(self.resp)
