@@ -28,19 +28,24 @@ class Pumi:
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
         self.checkUpdate = True;
-        self.isLithoku = False;
+        self.isGitAvailable = False;
         self.mySha = '';
 
         try:
-            with open('.git/refs/remotes/origin/master', 'r') as file:
-                self.mySha = file.read().strip();
+            import subprocess
+            self.mySha = subprocess.check_output(['git', 'rev-parse', 'HEAD']).strip().decode('utf8');
         except:
-            self.isLithoku = True;
+            try:
+                with open('.git/refs/remotes/origin/master', 'r') as file:
+                    self.mySha = file.read().strip();
+                    self.isGitAvailable = True;
+            except:
+                pass
 
         self.latestSha = '';
 
     def isLithoku(self):
-        return self.isLithoku;
+        return not self.isGitAvailable;
 
     def talk(self, resp):
         self.interval = 5 * 60;
