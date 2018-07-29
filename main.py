@@ -111,7 +111,7 @@ class BrainsOfBot:
         self.server = "irc.ircworld.org" # Server
         self.port = 6667
         self.channel = "#balt" # Channel
-        self.botnick = "LegatoBot2" # Your bot's nick
+        self.botnick = "LegatoBot" # Your bot's nick
         self.handlers = []
         self.pumis = []
         self.isPumisAlreadyInitialized = False;
