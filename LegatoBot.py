@@ -1,6 +1,8 @@
 import os
 import main
+import logging
 
+logging.basicConfig(format='%(asctime)s %(message)s', level = logging.DEBUG )
 brain = main.BrainsOfBot()
 
 modules = os.listdir("handlers");

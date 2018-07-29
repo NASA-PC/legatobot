@@ -4,6 +4,7 @@ if __name__ == "__main__":
 import socket
 import threading
 import time
+import logging
 
 class ParsedLine:
 
@@ -110,18 +111,18 @@ class BrainsOfBot:
         self.server = "irc.ircworld.org" # Server
         self.port = 6667
         self.channel = "#balt" # Channel
-        self.botnick = "LegatoBot" # Your bot's nick
+        self.botnick = "LegatoBot2" # Your bot's nick
         self.handlers = []
         self.pumis = []
         self.isPumisAlreadyInitialized = False;
-        self.debug = False
+        self.debug = True
         self.resp = Response(self);
         self.legatoLock = threading.Lock();
         self.wasLastMsgHandled = False; # Not sure if anybody will ever need it. Can be used to check if user is responding to the bot
 
     def registerHandler(self, handler):
         if(hasattr(self, "ircsock")):
-            print ("Bot is started. Handlers must be registered before start. Ignoring.");
+            logging.error ("Bot is started. Handlers must be registered before start. Ignoring.");
             return;
 
         if(not hasattr(handler, "priority")):
@@ -136,14 +137,14 @@ class BrainsOfBot:
 
     def registerPumi(self, pumi):
         if(hasattr(self, "ircsock")):
-            print ("Bot is started. Pumis must be registered before start. Ignoring.");
+            logging.error ("Bot is started. Pumis must be registered before start. Ignoring.");
             return;
 
         self.pumis.append(PumiWrapper(pumi, self.resp));
 
     def _sendCommand(self, msg):
         if(not hasattr(self, "ircsock")):
-            print ("Bot was not yet started. Ignoring.");
+            logging.error ("Bot was not yet started. Ignoring.");
             return;
         msg = msg.strip().replace("\r", "").replace("\n", " "); # Newlines are forbiden
 
@@ -206,7 +207,7 @@ class BrainsOfBot:
 
                 if(self.debug):
                     # Here we print what's coming from the server
-                    print(line)
+                    logging.info(line)
 
                 msg = parseIRCLine(line)
 
@@ -223,12 +224,12 @@ class BrainsOfBot:
                 for handler in self.handlers:
                     if(handler.canHandle(msg)):
                         if(self.debug):
-                            print ("handler {0} can handle".format(handler.__class__.__module__));
+                            logging.debug ("handler {0} can handle".format(handler.__class__.__module__));
                         handler.handle(msg, self.resp);
                         wasLastMsgHandled = True;
                         break;
                     elif(self.debug):
-                        print ("NOT {0}".format(handler.__class__.__module__));
+                        logging.debug ("NOT {0}".format(handler.__class__.__module__));
 
                 self.wasLastMsgHandled = wasLastMsgHandled;
         

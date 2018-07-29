@@ -1,4 +1,5 @@
 ''' Logs everything to console '''
+import logging
 
 ignored_commands = ['001', '002', '003', '004', '005', '251', '252',
                     '254', '255', '265', '266', '250', '375', '372',
@@ -12,9 +13,9 @@ class Handler:
     def canHandle(self, msg):
         
         if(msg.command == 'PRIVMSG'):
-            print('{0:12}: {1}'.format(msg.user, msg.msg));
+            logging.info('{0:12}: {1}'.format(msg.user, msg.msg));
         elif (not msg.command in ignored_commands):
-            print('--- {0}/{1} --- {2}'.format(msg.command, msg.user, msg.msg));
+            logging.info('--- {0}/{1} --- {2}'.format(msg.command, msg.user, msg.msg));
 
         return False;
         
