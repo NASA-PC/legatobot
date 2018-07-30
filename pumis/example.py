@@ -16,7 +16,7 @@ class Pumi:
     def __init__(self, brain):
         self.brain = brain; # Brain is not used in this example, but it is useful if you want i.e the name of the bot
 
-    def isLithoku(self): #If this function returns False, pumi will not talk again :( Ever. Unless Legatobot is restarted.
+    def isLithoku(self): #If this function returns True, pumi will not talk again :( Ever. Unless Legatobot is restarted.
         return True; #Die as soon as possible
 
     def talk(self, resp): #Do all the bloging
