@@ -13,7 +13,7 @@ class User:
 		self.now = time.time();
 
 	def isGiveVoice(self):
-		return time.time() - self.now > 5;
+		return time.time() - self.now > 11;
 
 def scheduleUser(username):
 	result = User(username)
