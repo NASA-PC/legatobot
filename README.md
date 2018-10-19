@@ -49,7 +49,7 @@ You can execute `p.talk(pumiTest.r)` multiple times if necessary.
 
 # Credits
 
-* ArnieBoi[SWE]
+* ArnieBoi
 * suukinni
 * Thorndrop
 * [J3remy](http://wiki.shellium.org/index.php?title=Writing_an_IRC_bot_in_Python&action=edit)
